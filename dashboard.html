@@ -1,103 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>CatchCode | Dashboard</title>
-
-  <!-- Inline CSS: self-contained so styling cannot be missed -->
-  <style>
-    :root{
-      --bg:#070707;
-      --surface:#0d0f10;
-      --neon:#00ff88;
-      --muted:rgba(180,255,200,0.18);
-      --card:#0b0b0b;
-      --radius:12px;
-      --tran: .26s cubic-bezier(.2,.9,.3,1);
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      background:linear-gradient(180deg,#020202 0%, #071014 60%);
-      color: #d8ffea;
-      font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      line-height:1.4;
-      padding:28px;
-    }
-
-    /* header */
-    header{
-      display:flex;align-items:center;justify-content:space-between;
-      gap:18px;margin-bottom:18px;
-      padding:12px 18px;border-radius:10px;
-      background:linear-gradient(90deg, rgba(0,255,136,0.03), rgba(0,0,0,0.02));
-      border:1px solid rgba(0,255,136,0.06);
-      box-shadow: 0 8px 40px rgba(0,255,136,0.04);
-    }
-    .brand{display:flex;gap:12px;align-items:center}
-    .logoMark{
-      width:48px;height:48px;border-radius:10px;
-      background:linear-gradient(135deg, rgba(0,255,136,0.18), rgba(0,255,136,0.04));
-      display:flex;align-items:center;justify-content:center;font-weight:700;color:#001;
-      box-shadow:0 10px 40px rgba(0,255,136,0.06) inset;
-      font-size:20px;
-    }
-    .siteName{font-weight:800;color:var(--neon);text-shadow:0 0 12px rgba(0,255,136,0.18);letter-spacing:0.5px}
-    .nav{display:flex;gap:10px;align-items:center}
-    .nav a{color:inherit;text-decoration:none;padding:8px 10px;border-radius:8px;transition:all var(--tran)}
-    .nav a.active{background:rgba(0,255,136,0.06);box-shadow:0 8px 40px rgba(0,255,136,0.06)}
-    .nav a:hover{color:var(--neon);text-shadow:0 0 8px rgba(0,255,136,0.14)}
-
-    /* layout */
-    .wrap{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr;gap:18px}
-    .card{
-      background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
-      border-radius:var(--radius);padding:18px;border:1px solid rgba(0,255,136,0.04);
-      box-shadow: 0 10px 40px rgba(0,255,136,0.03);
-      transition:transform var(--tran), box-shadow var(--tran);
-    }
-    .card:hover{transform:translateY(-8px); box-shadow: 0 20px 80px rgba(0,255,136,0.08)}
-
-    .hero .title{font-size:28px;font-weight:800;color:var(--neon);text-shadow:0 6px 30px rgba(0,255,136,0.06)}
-    .muted{color:var(--muted);font-size:13px}
-
-    /* cards grid */
-    .cardsGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:12px}
-
-    /* leaderboard */
-    .leaderboard ul{list-style:none;padding:0;margin:0}
-    .leaderboard li{display:flex;justify-content:space-between;padding:8px 10px;border-radius:10px;margin-bottom:8px;background:linear-gradient(90deg, rgba(0,0,0,0.15), rgba(0,0,0,0.05));border:1px solid rgba(0,255,136,0.02)}
-    .rank{opacity:0.8;color:var(--neon);font-weight:700;margin-right:10px}
-
-    /* footer */
-    footer{text-align:left;margin-top:22px;color:var(--muted);font-size:13px}
-
-    /* small screens */
-    @media (max-width:900px){
-      .wrap{grid-template-columns:1fr}
-      body{padding:18px}
-    }
-
-    /* page enter animation */
-    main{opacity:0;transform:translateY(14px);transition:all .36s cubic-bezier(.2,.9,.3,1)}
-    main.entered{opacity:1;transform:none}
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catch Code Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
 </head>
-<body>
+<body class="fade">
   <header>
-    <div class="brand">
-      <div class="logoMark">🚀</div>
-      <div>
-        <div class="siteName">catch code</div>
-        <div class="muted">dark neon · coding vibes</div>
-      </div>
-    </div>
-
-    <nav class="nav">
+    <h1 class="logo">⚡ Catch Code</h1>
+    <nav>
       <a href="dashboard.html" class="active">Dashboard</a>
       <a href="learn.html">Learn</a>
       <a href="practice.html">Practice</a>
@@ -105,62 +18,31 @@
     </nav>
   </header>
 
-  <main id="appMain">
-    <div class="wrap">
-      <section>
-        <div class="card hero">
-          <div class="title">Welcome to <span style="color:var(--neon)">CatchCode</span></div>
-          <div class="muted" style="margin-top:8px">Level up your coding game and climb the ranks.</div>
-        </div>
+  <section class="hero">
+    <h2 class="glow-text">🚀 Welcome to Catch Code</h2>
+    <p class="subtitle">Learn. Code. Level up.</p>
+  </section>
 
-        <div class="card" style="margin-top:12px">
-          <h3 style="margin:0 0 8px 0;color:var(--neon)">Latest Courses</h3>
-          <div class="cardsGrid" id="courses">
-            <div class="card">Introduction to HTML</div>
-            <div class="card">Simple Styling with CSS</div>
-            <div class="card">How to Write a Full Script with JS</div>
-          </div>
-        </div>
-
-        <div class="card" style="margin-top:12px">
-          <h3 style="margin:0 0 8px 0;color:var(--neon)">Recent Activities</h3>
-          <p class="muted">No live data connected — placeholders only.</p>
-          <div style="margin-top:8px" class="muted">
-            • You completed "Intro to HTML" — placeholder<br>
-            • Your code was upvoted — placeholder
-          </div>
-        </div>
-      </section>
-
-      <aside>
-        <div class="card leaderboard">
-          <h3 style="margin:0 0 8px 0;color:var(--neon)">Top Coders</h3>
-          <ul>
-            <li><span><strong class="rank">1.</strong> ByteBlazer</span> <span>4800 XP</span></li>
-            <li><span><strong class="rank">2.</strong> CodeVortex</span> <span>4200 XP</span></li>
-            <li><span><strong class="rank">3.</strong> NeonNinja</span> <span>3990 XP</span></li>
-            <li><span><strong class="rank">4.</strong> DevStorm</span> <span>3770 XP</span></li>
-            <li><span><strong class="rank">5.</strong> PlusBen</span> <span>3600 XP</span></li>
-          </ul>
-        </div>
-
-        <div class="card" style="margin-top:12px">
-          <h4 style="color:var(--neon);margin:0 0 8px 0">Tips</h4>
-          <div class="muted">Hover any course card to see the glow effect. All data here is placeholder and local-only.</div>
-        </div>
-      </aside>
+  <main class="dashboard">
+    <div class="courses">
+      <h3>Latest Courses</h3>
+      <div class="card">Introduction to HTML</div>
+      <div class="card">Simple Styling with CSS</div>
+      <div class="card">How to Write a Full Script with JS</div>
     </div>
 
-    <footer>
-      © 2025 CatchCode. All rights reserved.
-    </footer>
+    <div class="leaderboard">
+      <h3>Top Learners</h3>
+      <ul>
+        <li>Benzy — Rank #1 — 2200 XP</li>
+        <li>Lexi — Rank #2 — 1980 XP</li>
+        <li>RayCode — Rank #3 — 1720 XP</li>
+        <li>NexDev — Rank #4 — 1610 XP</li>
+        <li>CodeKid — Rank #5 — 1500 XP</li>
+      </ul>
+    </div>
   </main>
 
-  <script>
-    // small page transition
-    document.addEventListener('DOMContentLoaded', ()=> {
-      requestAnimationFrame(()=> document.getElementById('appMain').classList.add('entered'));
-    });
-  </script>
+  <footer>© 2025 Catch Code. All rights reserved.</footer>
 </body>
 </html>
