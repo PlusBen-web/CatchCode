@@ -1,0 +1,145 @@
+/* Core Theme */
+body {
+  background: #0a0a0a;
+  color: #d4ffd6;
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  border-bottom: 1px solid #00ff88;
+}
+
+.logo {
+  color: #00ff88;
+  text-shadow: 0 0 10px #00ff88;
+}
+
+nav a {
+  color: #d4ffd6;
+  margin: 0 15px;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+nav a.active, nav a:hover {
+  color: #00ff88;
+  text-shadow: 0 0 8px #00ff88;
+}
+
+main {
+  padding: 40px;
+  animation: fadeIn 0.8s ease forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cards {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.card {
+  background: #111;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px transparent;
+  transition: 0.3s;
+}
+
+.card:hover {
+  box-shadow: 0 0 15px #00ff88;
+  transform: translateY(-5px);
+}
+
+/* Editor setup */
+.editor-container {
+  display: flex;
+  gap: 20px;
+  height: 400px;
+}
+
+#codeEditor {
+  width: 50%;
+  height: 100%;
+  background: #111;
+  color: #00ff88;
+  border: none;
+  outline: none;
+  padding: 15px;
+  font-family: monospace;
+  border-radius: 10px;
+}
+
+#preview {
+  width: 50%;
+  height: 100%;
+  background: white;
+  border-radius: 10px;
+}
+
+button {
+  background: #00ff88;
+  border: none;
+  padding: 10px 20px;
+  color: #000;
+  font-weight: bold;
+  border-radius: 8px;
+  margin-top: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #0affb8;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  border-top: 1px solid #00ff88;
+  color: #d4ffd6;
+  font-size: 14px;
+}
+
+/* Profile */
+.profile-card {
+  display: flex;
+  gap: 20px;
+  background: #111;
+  padding: 20px;
+  border-radius: 12px;
+  margin-top: 30px;
+  box-shadow: 0 0 15px transparent;
+  transition: 0.3s;
+}
+
+.profile-card:hover {
+  box-shadow: 0 0 15px #00ff88;
+}
+
+.avatar {
+  background: #00ff88;
+  color: #000;
+  font-weight: bold;
+  font-size: 30px;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
