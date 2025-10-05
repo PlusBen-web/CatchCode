@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CatchCode | Profile</title>
-  <link rel="stylesheet" href="styles/style.css">
-  <script src="scripts/main.js" defer></script>
+  <title>Catch Code | Profile</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
 </head>
-<body>
+<body class="fade">
   <header>
-    <h1 class="logo">Catch<span>Code</span> 🚀</h1>
+    <h1 class="logo">⚡ Catch Code</h1>
     <nav>
       <a href="dashboard.html">Dashboard</a>
       <a href="learn.html">Learn</a>
@@ -19,21 +19,22 @@
   </header>
 
   <main class="profile">
-    <h2>Your Profile</h2>
     <div class="profile-card">
       <div class="avatar">BB</div>
-      <div class="info">
-        <p><strong>Username:</strong> plusben</p>
-        <p><strong>Bio:</strong> No bio</p>
-        <p><strong>Rank:</strong> Novice Coder</p>
-        <p><strong>XP:</strong> 3600</p>
-        <button id="editProfile">Edit Profile</button>
-      </div>
+      <h2 class="username">PlusBen</h2>
+      <p class="bio">No bio added.</p>
+      <p><strong>XP:</strong> 2200</p>
+      <p><strong>Rank:</strong> #1</p>
+      <button id="edit-btn">Edit Profile</button>
+    </div>
+
+    <div class="edit-profile hidden">
+      <input type="text" id="name-input" placeholder="Username">
+      <textarea id="bio-input" placeholder="Bio"></textarea>
+      <button id="save-btn">Save Changes</button>
     </div>
   </main>
 
-  <footer>
-    <p>© 2025 CatchCode. All rights reserved.</p>
-  </footer>
+  <footer>© 2025 Catch Code. All rights reserved.</footer>
 </body>
 </html>
