@@ -1,88 +1,170 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>CatchCode — Profile</title>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
-:root{--neon:#00ff88;--muted:rgba(160,255,180,0.14)}
-*{box-sizing:border-box}html,body{height:100%;margin:0;font-family:Orbitron,monospace;background:#000;color:var(--neon)}
-.header{display:flex;justify-content:space-between;align-items:center;padding:18px 24px;border-bottom:1px solid rgba(0,255,136,0.04)}
-.container{max-width:900px;margin:26px auto;padding:18px}
-.card{background:linear-gradient(180deg,rgba(255,255,255,0.01),rgba(255,255,255,0.00));padding:18px;border-radius:12px;border:1px solid rgba(0,255,136,0.03)}
-.avatar{width:120px;height:120px;border-radius:16px;background:linear-gradient(135deg, rgba(0,255,136,0.08), rgba(0,255,136,0.02));display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 12px}
-.input, textarea{width:100%;padding:10px;background:#060606;border-radius:8px;border:1px solid rgba(0,255,136,0.04);color:var(--neon)}
-.btn{display:inline-block;padding:10px 14px;border-radius:10px;background:linear-gradient(90deg, rgba(0,255,136,0.08), rgba(0,255,136,0.02));border:1px solid rgba(0,255,136,0.06);cursor:pointer;color:var(--neon)}
-.footer{margin-top:16px;color:var(--muted)}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CatchCode — Profile</title>
+  <style>
+    :root{--bg:#050608;--accent:#06f0df;--accent2:#2eb0ff;--muted:#9fb3c8}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui;color:#e6eef6;min-height:100vh;background:linear-gradient(180deg,#02040a 0%,var(--bg) 100%)}
+    .header{background:rgba(0,0,0,0.36);padding:14px}
+    .header-inner{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+    .logo{width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;color:#021;font-weight:900;box-shadow:0 10px 40px rgba(46,176,255,0.08)}
+    .navlinks{display:flex;gap:18px}
+    .navlinks a{color:#e6eef6;text-decoration:none;font-weight:600;padding:8px}
+    .container{max-width:1100px;margin:28px auto;padding:0 18px}
+    .profile-wrap{display:flex;gap:18px;align-items:flex-start}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 10px 30px rgba(3,10,23,0.6)}
+    .avatar{width:110px;height:110px;border-radius:999px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-weight:900;color:#021;font-size:34px}
+    .btn{padding:8px 12px;border-radius:8px;border:0;cursor:pointer;font-weight:700}
+    .btn-primary{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#021}
+    textarea{width:100%;height:100px;background:#081018;color:#e6eef6;border-radius:10px;padding:10px;border:1px solid rgba(255,255,255,0.03);resize:none}
+    .muted{color:var(--muted)}
+    footer{padding:12px;text-align:center;color:#888;margin-top:24px}
+    @media(max-width:900px){.profile-wrap{flex-direction:column;align-items:center}}
+  </style>
 </head>
 <body>
   <header class="header">
-    <div style="display:flex;gap:12px;align-items:center"><div style="width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg, rgba(0,255,136,0.12), rgba(0,255,136,0.02));display:flex;align-items:center;justify-content:center">🚀</div><div style="font-weight:700">CatchCode</div></div>
-    <nav><a href="dashboard.html">Dashboard</a><a href="learn.html">Learn</a><a href="practice.html">Practice</a><a href="profile.html" class="active">Profile</a><a href="leaderboard.html">Leaderboard</a></nav>
+    <div class="header-inner">
+      <div style="display:flex;align-items:center;gap:12px"><div class="logo">CC</div><div style="font-weight:800;color:var(--accent2)">CatchCode</div></div>
+      <nav class="navlinks">
+        <a href="dashboard.html">Dashboard</a>
+        <a href="learn.html">Learn</a>
+        <a href="practice.html">Practice</a>
+        <a href="leaderboard.html">Leaderboard</a>
+        <a href="profile.html" class="active">Profile</a>
+      </nav>
+    </div>
   </header>
 
   <main class="container">
-    <div class="card" id="profileCard">
-      <div class="avatar" id="avatar">BB</div>
-      <h2 id="displayName" style="text-align:center;margin:6px 0 0 0">plusben</h2>
-      <p id="displayTitle" style="text-align:center;color:var(--muted);margin:6px 0">Novice Coder · 9999 XP</p>
-      <p id="displayBio" style="color:var(--muted);text-align:center">No bio</p>
-      <div style="text-align:center;margin-top:12px"><button id="editBtn" class="btn">Edit Profile</button></div>
-    </div>
+    <section style="text-align:center;margin-bottom:18px">
+      <h2 style="color:var(--accent)">Your Profile</h2>
+      <p class="muted">View & edit your bio, check rank, XP and courses completed.</p>
+    </section>
 
-    <div class="card" style="margin-top:14px" id="editCard">
-      <h3 style="margin-top:0">Edit Profile</h3>
-      <label class="muted">Username</label>
-      <input id="nameInput" class="input" type="text" placeholder="Username">
-      <label class="muted" style="margin-top:8px;display:block">Title</label>
-      <input id="titleInput" class="input" type="text" placeholder="Title">
-      <label class="muted" style="margin-top:8px;display:block">Bio</label>
-      <textarea id="bioInput" class="input" rows="4"></textarea>
-      <div style="margin-top:10px"><button id="saveBtn" class="btn">Save Changes</button> <button id="cancelBtn" class="btn" style="margin-left:8px">Cancel</button></div>
-    </div>
+    <div class="profile-wrap">
+      <div class="card" style="display:flex;flex-direction:column;align-items:center;gap:12px">
+        <div id="avatar" class="avatar">PB</div>
+        <h3 id="pname">Loading...</h3>
+        <div class="muted" id="pmeta">—</div>
+        <div style="display:flex;gap:8px">
+          <button id="editBtn" class="btn btn-primary">Edit Bio</button>
+          <button id="signOut" class="btn">Sign Out</button>
+        </div>
+      </div>
 
-    <div class="footer">© 2025 CatchCode. All rights reserved.</div>
+      <div style="flex:1;display:flex;flex-direction:column;gap:12px">
+        <div class="card">
+          <h4 style="margin:0 0 8px 0">Stats</h4>
+          <div style="display:flex;gap:14px">
+            <div><div style="font-weight:800;font-size:20px" id="xp">0</div><div class="muted">XP</div></div>
+            <div><div style="font-weight:800;font-size:20px" id="lvl">1</div><div class="muted">Level</div></div>
+            <div><div style="font-weight:800;font-size:20px" id="courses">0</div><div class="muted">Courses</div></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h4 style="margin:0 0 8px 0">Bio</h4>
+          <div id="bioView" class="muted">No bio yet.</div>
+          <textarea id="bioEdit" style="display:none"></textarea>
+          <div style="margin-top:8px"><button id="saveBio" class="btn btn-primary" style="display:none">Save</button></div>
+        </div>
+
+        <div class="card">
+          <h4 style="margin:0 0 8px 0">Recent Activity</h4>
+          <div id="activity" class="muted">No recent activity.</div>
+        </div>
+      </div>
+    </div>
   </main>
 
-<script>
-// localStorage profile
-const defaultProfile = { name:'plusben', title:'Novice Coder', bio:'No bio', xp:9999 };
-const store = JSON.parse(localStorage.getItem('catchcode_profile')||'{}');
-const profile = Object.assign({}, defaultProfile, store);
+  <footer>© 2025 CatchCode | PlusBen</footer>
 
-// DOM refs
-const avatar = document.getElementById('avatar');
-const displayName = document.getElementById('displayName');
-const displayTitle = document.getElementById('displayTitle');
-const displayBio = document.getElementById('displayBio');
-const editBtn = document.getElementById('editBtn');
-const editCard = document.getElementById('editCard');
-const profileCard = document.getElementById('profileCard');
+  <script>
+    // profile page: loads from Firebase if available; else from localStorage.
+    function getLocalUser(){ try{return JSON.parse(localStorage.getItem('cc_user')||'null');}catch(e){return null} }
+    function saveLocalUser(u){ localStorage.setItem('cc_user', JSON.stringify(u)) }
 
-function render(){
-  avatar.textContent = profile.name.split(' ').map(p=>p[0]).slice(0,2).join('').toUpperCase();
-  displayName.textContent = profile.name;
-  displayTitle.textContent = profile.title + ' · ' + profile.xp + ' XP';
-  displayBio.textContent = profile.bio || 'No bio';
-  // preload inputs
-  document.getElementById('nameInput').value = profile.name;
-  document.getElementById('titleInput').value = profile.title;
-  document.getElementById('bioInput').value = profile.bio;
-}
-render();
+    // helper to render user object
+    function renderUser(u){
+      if(!u) return;
+      const initials = (u.username || (u.email||'?').split('@')[0] || 'User').split(' ').map(x=>x[0]).slice(0,2).join('').toUpperCase();
+      document.getElementById('avatar').textContent = initials;
+      document.getElementById('pname').textContent = u.username || u.email || 'User';
+      document.getElementById('pmeta').textContent = `${u.email || ''}`;
+      document.getElementById('xp').textContent = u.xp || 0;
+      document.getElementById('lvl').textContent = u.level || 1;
+      document.getElementById('courses').textContent = u.courses || 0;
+      document.getElementById('bioView').textContent = u.bio || 'No bio yet.';
+      if(Array.isArray(u.activity) && u.activity.length) document.getElementById('activity').textContent = u.activity.slice(-6).reverse().join(' | ');
+    }
 
-editBtn.onclick = ()=> { window.scrollTo({top:0,behavior:'smooth'}); document.getElementById('nameInput').focus(); };
+    (function init(){
+      try {
+        if(window.firebase && firebase.auth){
+          firebase.auth().onAuthStateChanged(user=>{
+            if(!user){ const lu = getLocalUser(); if(lu) renderUser(lu); else location.href='index.html'; return; }
+            // try to read realtime DB if available
+            try{
+              const db = firebase.database();
+              db.ref('users/' + user.uid).once('value').then(snap=>{
+                const d = snap.val() || {};
+                const u = { email:user.email, username: d.username || user.email.split('@')[0], xp: d.xp || 0, level: d.level || 1, courses: d.courses || 0, bio: d.bio || '', activity: d.activity || [] };
+                saveLocalUser(u); renderUser(u);
+              }).catch(()=>{ const lu = getLocalUser(); if(lu) renderUser(lu); });
+            }catch(e){ const lu = getLocalUser(); if(lu) renderUser(lu); }
+          });
+        } else {
+          const lu = getLocalUser();
+          if(!lu) return location.href='index.html';
+          renderUser(lu);
+        }
+      } catch(e){ console.warn(e); const lu = getLocalUser(); if(lu) renderUser(lu); }
+    })();
 
-document.getElementById('saveBtn').onclick = ()=>{
-  profile.name = document.getElementById('nameInput').value || profile.name;
-  profile.title = document.getElementById('titleInput').value || profile.title;
-  profile.bio = document.getElementById('bioInput').value || profile.bio;
-  localStorage.setItem('catchcode_profile', JSON.stringify(profile));
-  render();
-  alert('Saved locally ✅');
-};
-document.getElementById('cancelBtn').onclick = ()=>{ render(); };
-</script>
+    // edit bio flow
+    document.getElementById('editBtn').addEventListener('click', ()=>{
+      const bioEdit = document.getElementById('bioEdit'), bioView = document.getElementById('bioView');
+      bioEdit.style.display = 'block'; bioView.style.display = 'none';
+      bioEdit.value = bioView.textContent==='No bio yet.' ? '' : bioView.textContent;
+      document.getElementById('saveBio').style.display='inline-block';
+    });
+
+    document.getElementById('saveBio').addEventListener('click', async ()=>{
+      const newBio = document.getElementById('bioEdit').value.trim();
+      // update local storage
+      const u = getLocalUser() || { username:'User', email:'', xp:0, level:1, courses:0, bio:'' };
+      u.bio = newBio;
+      saveLocalUser(u);
+      // if firebase available, try to write to DB
+      try{
+        if(window.firebase && firebase.auth){
+          const user = firebase.auth().currentUser;
+          if(user){
+            await firebase.database().ref('users/' + user.uid + '/bio').set(newBio);
+          }
+        }
+      }catch(e){ console.warn('Firebase bio save failed', e) }
+      document.getElementById('bioEdit').style.display='none';
+      document.getElementById('bioView').style.display='block';
+      document.getElementById('bioView').textContent = newBio || 'No bio yet.';
+      document.getElementById('saveBio').style.display='none';
+      alert('Bio saved!');
+    });
+
+    // sign out
+    document.getElementById('signOut').addEventListener('click', async ()=>{
+      try{
+        if(window.firebase && firebase.auth){
+          await firebase.auth().signOut();
+        }
+      }catch(e){ console.warn('firebase signout', e) }
+      localStorage.removeItem('cc_user');
+      location.href = 'index.html';
+    });
+  </script>
 </body>
 </html>
