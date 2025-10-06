@@ -1,40 +1,88 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Catch Code | Profile</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>CatchCode — Profile</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+:root{--neon:#00ff88;--muted:rgba(160,255,180,0.14)}
+*{box-sizing:border-box}html,body{height:100%;margin:0;font-family:Orbitron,monospace;background:#000;color:var(--neon)}
+.header{display:flex;justify-content:space-between;align-items:center;padding:18px 24px;border-bottom:1px solid rgba(0,255,136,0.04)}
+.container{max-width:900px;margin:26px auto;padding:18px}
+.card{background:linear-gradient(180deg,rgba(255,255,255,0.01),rgba(255,255,255,0.00));padding:18px;border-radius:12px;border:1px solid rgba(0,255,136,0.03)}
+.avatar{width:120px;height:120px;border-radius:16px;background:linear-gradient(135deg, rgba(0,255,136,0.08), rgba(0,255,136,0.02));display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 12px}
+.input, textarea{width:100%;padding:10px;background:#060606;border-radius:8px;border:1px solid rgba(0,255,136,0.04);color:var(--neon)}
+.btn{display:inline-block;padding:10px 14px;border-radius:10px;background:linear-gradient(90deg, rgba(0,255,136,0.08), rgba(0,255,136,0.02));border:1px solid rgba(0,255,136,0.06);cursor:pointer;color:var(--neon)}
+.footer{margin-top:16px;color:var(--muted)}
+</style>
 </head>
-<body class="fade">
-  <header>
-    <h1 class="logo">⚡ Catch Code</h1>
-    <nav>
-      <a href="dashboard.html">Dashboard</a>
-      <a href="learn.html">Learn</a>
-      <a href="practice.html">Practice</a>
-      <a href="profile.html" class="active">Profile</a>
-    </nav>
+<body>
+  <header class="header">
+    <div style="display:flex;gap:12px;align-items:center"><div style="width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg, rgba(0,255,136,0.12), rgba(0,255,136,0.02));display:flex;align-items:center;justify-content:center">🚀</div><div style="font-weight:700">CatchCode</div></div>
+    <nav><a href="dashboard.html">Dashboard</a><a href="learn.html">Learn</a><a href="practice.html">Practice</a><a href="profile.html" class="active">Profile</a><a href="leaderboard.html">Leaderboard</a></nav>
   </header>
 
-  <main class="profile">
-    <div class="profile-card">
-      <div class="avatar">BB</div>
-      <h2 class="username">PlusBen</h2>
-      <p class="bio">No bio added.</p>
-      <p><strong>XP:</strong> 2200</p>
-      <p><strong>Rank:</strong> #1</p>
-      <button id="edit-btn">Edit Profile</button>
+  <main class="container">
+    <div class="card" id="profileCard">
+      <div class="avatar" id="avatar">BB</div>
+      <h2 id="displayName" style="text-align:center;margin:6px 0 0 0">plusben</h2>
+      <p id="displayTitle" style="text-align:center;color:var(--muted);margin:6px 0">Novice Coder · 9999 XP</p>
+      <p id="displayBio" style="color:var(--muted);text-align:center">No bio</p>
+      <div style="text-align:center;margin-top:12px"><button id="editBtn" class="btn">Edit Profile</button></div>
     </div>
 
-    <div class="edit-profile hidden">
-      <input type="text" id="name-input" placeholder="Username">
-      <textarea id="bio-input" placeholder="Bio"></textarea>
-      <button id="save-btn">Save Changes</button>
+    <div class="card" style="margin-top:14px" id="editCard">
+      <h3 style="margin-top:0">Edit Profile</h3>
+      <label class="muted">Username</label>
+      <input id="nameInput" class="input" type="text" placeholder="Username">
+      <label class="muted" style="margin-top:8px;display:block">Title</label>
+      <input id="titleInput" class="input" type="text" placeholder="Title">
+      <label class="muted" style="margin-top:8px;display:block">Bio</label>
+      <textarea id="bioInput" class="input" rows="4"></textarea>
+      <div style="margin-top:10px"><button id="saveBtn" class="btn">Save Changes</button> <button id="cancelBtn" class="btn" style="margin-left:8px">Cancel</button></div>
     </div>
+
+    <div class="footer">© 2025 CatchCode. All rights reserved.</div>
   </main>
 
-  <footer>© 2025 Catch Code. All rights reserved.</footer>
+<script>
+// localStorage profile
+const defaultProfile = { name:'plusben', title:'Novice Coder', bio:'No bio', xp:9999 };
+const store = JSON.parse(localStorage.getItem('catchcode_profile')||'{}');
+const profile = Object.assign({}, defaultProfile, store);
+
+// DOM refs
+const avatar = document.getElementById('avatar');
+const displayName = document.getElementById('displayName');
+const displayTitle = document.getElementById('displayTitle');
+const displayBio = document.getElementById('displayBio');
+const editBtn = document.getElementById('editBtn');
+const editCard = document.getElementById('editCard');
+const profileCard = document.getElementById('profileCard');
+
+function render(){
+  avatar.textContent = profile.name.split(' ').map(p=>p[0]).slice(0,2).join('').toUpperCase();
+  displayName.textContent = profile.name;
+  displayTitle.textContent = profile.title + ' · ' + profile.xp + ' XP';
+  displayBio.textContent = profile.bio || 'No bio';
+  // preload inputs
+  document.getElementById('nameInput').value = profile.name;
+  document.getElementById('titleInput').value = profile.title;
+  document.getElementById('bioInput').value = profile.bio;
+}
+render();
+
+editBtn.onclick = ()=> { window.scrollTo({top:0,behavior:'smooth'}); document.getElementById('nameInput').focus(); };
+
+document.getElementById('saveBtn').onclick = ()=>{
+  profile.name = document.getElementById('nameInput').value || profile.name;
+  profile.title = document.getElementById('titleInput').value || profile.title;
+  profile.bio = document.getElementById('bioInput').value || profile.bio;
+  localStorage.setItem('catchcode_profile', JSON.stringify(profile));
+  render();
+  alert('Saved locally ✅');
+};
+document.getElementById('cancelBtn').onclick = ()=>{ render(); };
+</script>
 </body>
 </html>
