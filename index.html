@@ -1,156 +1,167 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>CatchCode — Sign In</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In | LearnX</title>
   <style>
-    :root{
-      --bg:#050608; --accent:#06f0df; --accent2:#2eb0ff; --muted:#9fb3c8;
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
     }
-    *{box-sizing:border-box}
-    body{
-      min-height:100vh;margin:0;font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto;
-      background:linear-gradient(180deg,#02040a 0%,var(--bg) 100%); color:#e6eef6;
-      display:flex;align-items:center;justify-content:center;
+
+    body {
+      background: radial-gradient(circle at top left, #0d0d0d, #000);
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      overflow: hidden;
     }
-    .wrap{width:100%;max-width:940px;padding:28px}
-    .topbar{display:flex;justify-content:space-between;align-items:center;padding:18px 0}
-    .brand{display:flex;align-items:center;gap:14px}
-    .logo{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;color:#021;font-weight:900;box-shadow:0 10px 40px rgba(46,176,255,0.08)}
-    .nav a{color:#dbeef5;text-decoration:none;margin-left:18px;font-weight:600}
-    .hero{background:transparent;text-align:center;padding:40px 20px}
-    .hero h1{font-size:40px;color:var(--accent);text-shadow:0 10px 40px rgba(6,182,212,0.08);margin:0}
-    .card{background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005)); padding:20px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 10px 40px rgba(3,10,23,0.6);max-width:520px;margin:24px auto}
-    label{display:block;color:var(--muted);font-size:13px;margin-top:10px}
-    input{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:inherit}
-    .row{display:flex;gap:10px;margin-top:14px;align-items:center}
-    .btn{padding:10px 14px;border-radius:10px;border:0;cursor:pointer;font-weight:700}
-    .btn-primary{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#021}
-    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.03);color:var(--muted)}
-    .muted{color:var(--muted);font-size:13px;margin-top:8px}
-    .footer{margin-top:20px;color:#8aa;font-size:13px;text-align:center}
-    .fade-in {animation:fade .45s ease both}
-    @keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+    .container {
+      width: 380px;
+      background: rgba(20, 20, 20, 0.9);
+      border-radius: 20px;
+      padding: 2rem;
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .container::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: conic-gradient(from 0deg, #0ff, #00f, #0ff, #00f);
+      animation: rotate 6s linear infinite;
+      opacity: 0.2;
+    }
+
+    @keyframes rotate {
+      100% { transform: rotate(360deg); }
+    }
+
+    .form {
+      position: relative;
+      z-index: 1;
+    }
+
+    .form h2 {
+      text-align: center;
+      margin-bottom: 1rem;
+      color: #0ff;
+      text-shadow: 0 0 8px #00f;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.4rem;
+      font-size: 0.9rem;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 0.7rem;
+      border: none;
+      outline: none;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      font-size: 1rem;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 0.8rem;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(90deg, #0ff, #00f);
+      color: #000;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .btn:hover {
+      box-shadow: 0 0 15px #0ff;
+      transform: scale(1.05);
+    }
+
+    .toggle {
+      text-align: center;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .toggle span {
+      color: #0ff;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .fade {
+      animation: fade 0.5s ease forwards;
+    }
+
+    @keyframes fade {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="topbar">
-      <div class="brand">
-        <div class="logo">CC</div>
-        <div style="font-weight:800;color:var(--accent2)">CatchCode</div>
+  <div class="container">
+    <div class="form fade" id="signin-form">
+      <h2>Welcome Back 👋</h2>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" placeholder="Enter your email" required>
       </div>
-      <div class="nav">
-        <a href="learn.html">Learn</a>
-        <a href="practice.html">Practice</a>
-        <a href="leaderboard.html">Leaderboard</a>
-        <a href="profile.html">Profile</a>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" placeholder="Enter password" required>
       </div>
+      <button class="btn">Sign In</button>
+      <div class="toggle">Don't have an account? <span onclick="toggleForm('signup')">Sign Up</span></div>
     </div>
 
-    <section class="hero">
-      <h1 class="fade-in">Welcome to CatchCode 🚀</h1>
-      <p class="muted">Sign in to access your dashboard, practice arena, and courses.</p>
-    </section>
-
-    <div class="card fade-in" role="form" aria-label="Sign in form">
-      <label for="email">Email</label>
-      <input id="email" type="email" placeholder="you@school.edu" />
-
-      <label for="password">Password</label>
-      <input id="password" type="password" placeholder="choose a strong password" />
-
-      <div class="row">
-        <button id="signin" class="btn btn-primary">Sign in</button>
-        <button id="signup" class="btn btn-ghost">Create account</button>
+    <div class="form fade" id="signup-form" style="display: none;">
+      <h2>Create Account ✨</h2>
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" placeholder="Choose a username" required>
       </div>
-
-      <div id="msg" class="muted"></div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" placeholder="Enter your email" required>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" placeholder="Create password" required>
+      </div>
+      <button class="btn">Sign Up</button>
+      <div class="toggle">Already have an account? <span onclick="toggleForm('signin')">Sign In</span></div>
     </div>
-
-    <div class="footer">© 2025 CatchCode | Copyright PlusBen</div>
   </div>
 
   <script>
-    // Lightweight sign-in/sign-up that uses Firebase Auth if it's been loaded and configured.
-    const msg = document.getElementById('msg');
-    const email = document.getElementById('email');
-    const password = document.getElementById('password');
-
-    function fallbackSaveSession(emailVal){
-      const user = { email: emailVal, username: emailVal.split('@')[0], xp:0, level:1, rank:0, bio:'' };
-      localStorage.setItem('cc_user', JSON.stringify(user));
-      return user;
+    function toggleForm(type) {
+      document.getElementById('signin-form').style.display = type === 'signin' ? 'block' : 'none';
+      document.getElementById('signup-form').style.display = type === 'signup' ? 'block' : 'none';
     }
-
-    async function tryFirebaseSignIn(emailV, passV, isSignUp=false){
-      try {
-        if (!window.firebaseCompatAvailable) throw new Error('No Firebase loaded');
-        // we use compat global if user included it earlier; otherwise fallback
-        if(isSignUp){
-          const auth = firebase.auth();
-          const cred = await auth.createUserWithEmailAndPassword(emailV, passV);
-          // also ensure DB record if realtime exists
-          try{ firebase.database().ref('users/' + cred.user.uid).set({ username: emailV.split('@')[0], xp:0, level:1, rank:0, bio:'' }) }catch(e){}
-          return { uid: cred.user.uid, email: cred.user.email };
-        } else {
-          const auth = firebase.auth();
-          const cred = await auth.signInWithEmailAndPassword(emailV, passV);
-          return { uid: cred.user.uid, email: cred.user.email };
-        }
-      } catch (e) {
-        throw e;
-      }
-    }
-
-    document.getElementById('signin').addEventListener('click', async ()=>{
-      msg.textContent = '';
-      const e = email.value.trim(), p = password.value;
-      if(!e || !p) return msg.textContent = 'Enter email & password';
-      // try firebase if present (check both modular and compat)
-      try {
-        // If developer included Firebase compat scripts earlier, `firebase` object exists
-        if(window.firebase && firebase.auth){
-          // mark compat usage for other pages
-          window.firebaseCompatAvailable = true;
-          const auth = firebase.auth();
-          const userCred = await auth.signInWithEmailAndPassword(e, p);
-          // redirect
-          window.location.href = 'dashboard.html';
-          return;
-        }
-        // Try modular (rare in plain pages) via global firebaseApp? skip here.
-      } catch(err){
-        console.warn('Firebase sign-in failed, fallback to local mock', err);
-      }
-
-      // Fallback: save simple user to localStorage and redirect
-      fallbackSaveSession(e);
-      window.location.href = 'dashboard.html';
-    });
-
-    document.getElementById('signup').addEventListener('click', async ()=>{
-      msg.textContent = '';
-      const e = email.value.trim(), p = password.value;
-      if(!e || !p) return msg.textContent = 'Enter email & password';
-      try {
-        if(window.firebase && firebase.auth){
-          window.firebaseCompatAvailable = true;
-          const auth = firebase.auth();
-          const cred = await auth.createUserWithEmailAndPassword(e, p);
-          try{ firebase.database().ref('users/' + cred.user.uid).set({ username: e.split('@')[0], xp:0, level:1, rank:0, bio:'' }) }catch(e){}
-          window.location.href = 'dashboard.html';
-          return;
-        }
-      } catch(err){
-        console.warn('Firebase create user failed, fallback to local mock', err);
-      }
-
-      // fallback
-      fallbackSaveSession(e);
-      window.location.href = 'dashboard.html';
-    });
   </script>
 </body>
 </html>
