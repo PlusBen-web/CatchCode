@@ -1,115 +1,173 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>CatchCode — Practice</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Practice | CodeLab</title>
+  <link rel="stylesheet" href="style.css">
   <style>
-    :root{--bg:#050608;--accent:#06f0df;--accent2:#2eb0ff;--muted:#9fb3c8}
-    *{box-sizing:border-box}
-    body{margin:0;font-family:Inter,system-ui;min-height:100vh;background:linear-gradient(180deg,#02040a 0%,var(--bg) 100%);color:#e6eef6;display:flex;flex-direction:column}
-    .header{background:rgba(0,0,0,0.36);padding:14px 20px}
-    .header-inner{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
-    .logo{width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;color:#021;font-weight:900;box-shadow:0 10px 40px rgba(46,176,255,0.08)}
-    .navlinks{display:flex;gap:18px}
-    .navlinks a{color:#e6eef6;text-decoration:none;font-weight:600;padding:8px;border-radius:8px}
-    .navlinks a.active{color:var(--accent)}
-    .container{max-width:1100px;margin:28px auto;padding:0 18px;flex:1;display:flex;flex-direction:column}
-    .hero{text-align:center;padding:24px 0}
-    .main{display:flex;gap:18px;flex:1;align-items:stretch}
-    .panel{flex:1;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 10px 30px rgba(3,10,23,0.6)}
-    textarea{width:100%;height:calc(100vh - 260px);background:#081018;color:#9ff78a;border-radius:8px;padding:12px;border:1px solid rgba(255,255,255,0.03);resize:none;font-family:monospace;font-size:14px}
-    iframe{width:100%;height:calc(100vh - 260px);border-radius:8px;border:0;background:#fff}
-    .controls{display:flex;gap:10px;margin-bottom:10px}
-    .btn{padding:8px 12px;border-radius:8px;border:0;cursor:pointer;font-weight:700}
-    .btn-primary{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#021}
-    .muted{color:var(--muted)}
-    footer{padding:12px;text-align:center;color:#888}
-    @media(max-width:900px){.main{flex-direction:column}.panel textarea,.panel iframe{height:40vh}}
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0b0c10, #1f2833);
+      color: #fff;
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+      background: rgba(0,0,0,0.3);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 20px rgba(0,255,255,0.3);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: cyan;
+      text-shadow: 0 0 10px cyan;
+    }
+
+    .menu a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: #ccc;
+      font-weight: 500;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .menu a:hover, .menu a.active {
+      color: cyan;
+      text-shadow: 0 0 10px cyan;
+    }
+
+    .menu a::after {
+      content: "";
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: cyan;
+      transition: width 0.3s;
+      box-shadow: 0 0 10px cyan;
+    }
+
+    .menu a:hover::after, .menu a.active::after {
+      width: 100%;
+    }
+
+    .container {
+      flex: 1;
+      display: flex;
+      height: calc(100vh - 70px);
+    }
+
+    .editor {
+      width: 50%;
+      padding: 20px;
+      border-right: 2px solid rgba(0,255,255,0.2);
+      background: rgba(255,255,255,0.05);
+      display: flex;
+      flex-direction: column;
+      animation: fadeInLeft 1.2s ease;
+    }
+
+    textarea {
+      flex: 1;
+      width: 100%;
+      resize: none;
+      background: rgba(0,0,0,0.5);
+      color: #00ffff;
+      border: 1px solid rgba(0,255,255,0.3);
+      border-radius: 10px;
+      padding: 10px;
+      font-family: monospace;
+      font-size: 1rem;
+      box-shadow: 0 0 10px rgba(0,255,255,0.2);
+      outline: none;
+    }
+
+    .editor select, .editor button {
+      margin-top: 10px;
+      background: cyan;
+      border: none;
+      padding: 10px;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .editor button:hover {
+      background: #00e6e6;
+      box-shadow: 0 0 20px cyan;
+    }
+
+    iframe {
+      width: 50%;
+      border: none;
+      background: #fff;
+      animation: fadeInRight 1.2s ease;
+    }
+
+    @keyframes fadeInLeft {
+      from {opacity: 0; transform: translateX(-30px);}
+      to {opacity: 1; transform: translateX(0);}
+    }
+    @keyframes fadeInRight {
+      from {opacity: 0; transform: translateX(30px);}
+      to {opacity: 1; transform: translateX(0);}
+    }
   </style>
 </head>
 <body>
-  <header class="header">
-    <div class="header-inner">
-      <div style="display:flex;align-items:center;gap:12px"><div class="logo">CC</div><div style="font-weight:800;color:var(--accent2)">CatchCode</div></div>
-      <nav class="navlinks">
-        <a href="dashboard.html">Dashboard</a>
-        <a href="learn.html">Learn</a>
-        <a href="practice.html" class="active">Practice</a>
-        <a href="leaderboard.html">Leaderboard</a>
-        <a href="profile.html">Profile</a>
-      </nav>
+
+  <nav>
+    <div class="logo">CodeLab ⚡</div>
+    <div class="menu">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="learn.html">Learn</a>
+      <a href="practice.html" class="active">Practice</a>
+      <a href="profile.html">Profile</a>
+      <a href="index.html">Sign Out</a>
     </div>
-  </header>
+  </nav>
 
   <div class="container">
-    <section class="hero"><h2 style="color:var(--accent)">Practice Arena</h2><p class="muted">Write code on the left and preview on the right.</p></section>
-
-    <div class="main">
-      <div class="panel">
-        <div class="controls">
-          <select id="mode" style="padding:8px;border-radius:8px;background:transparent;border:1px solid rgba(255,255,255,0.03);color:inherit">
-            <option value="html">HTML</option>
-            <option value="css">CSS</option>
-            <option value="js">JavaScript</option>
-          </select>
-          <button id="run" class="btn btn-primary">Run</button>
-          <button id="autosave" class="btn">Auto: ON</button>
-        </div>
-        <textarea id="code" placeholder="Write your code here. Example: &lt;h1&gt;Hello&lt;/h1&gt;"></textarea>
-      </div>
-
-      <div class="panel">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-          <div style="font-weight:800;color:var(--accent2)">Live Preview</div>
-          <div class="muted" id="signedAs">—</div>
-        </div>
-        <iframe id="preview" sandbox="allow-scripts allow-forms"></iframe>
-      </div>
+    <div class="editor">
+      <h2 style="color: cyan; text-shadow: 0 0 10px cyan;">💻 Code Editor</h2>
+      <select id="docType">
+        <option value="html">HTML</option>
+        <option value="css">CSS</option>
+        <option value="js">JavaScript</option>
+      </select>
+      <textarea id="codeInput" placeholder="Write your code here..."></textarea>
+      <button onclick="runCode()">▶ Run Code</button>
     </div>
+
+    <iframe id="preview"></iframe>
   </div>
 
-  <footer>© 2025 CatchCode</footer>
-
   <script>
-    // practice: simple textarea -> iframe rendering
-    const codeBox = document.getElementById('code');
-    const preview = document.getElementById('preview');
-    const runBtn = document.getElementById('run');
-    const modeSel = document.getElementById('mode');
-    const autoBtn = document.getElementById('autosave');
-    let auto = true;
-    let buffers = { html:'<!doctype html><html><body><h1>CatchCode</h1></body></html>', css:'/* CSS */', js:'// JS' };
-    // load last draft if present
-    try{
-      const u = JSON.parse(localStorage.getItem('cc_user')||'null');
-      if(u) document.getElementById('signedAs').textContent = u.username || u.email;
-      const draft = JSON.parse(localStorage.getItem('cc_practice_draft')||'null');
-      if(draft){ buffers = draft; }
-    }catch(e){console.warn(e)}
-    function loadMode(m){ modeSel.value = m; codeBox.value = buffers[m]; }
-    loadMode('html');
-
-    function buildPreview(){
-      buffers[modeSel.value] = codeBox.value;
-      const html = buffers.html || '';
-      const css = buffers.css ? `<style>${buffers.css}</style>` : '';
-      const js = buffers.js ? `<script>${buffers.js}<\/script>` : '';
-      let out = html;
-      if(/<head/i.test(out)){
-        out = out.replace(/<head[^>]*>/i, match => match + css);
-      } else out = css + out;
-      if(/<\/body>/i.test(out)) out = out.replace(/<\/body>/i, js + '</body>');
-      else out += js;
-      preview.srcdoc = out;
+    function runCode() {
+      const code = document.getElementById("codeInput").value;
+      const previewFrame = document.getElementById("preview").contentWindow.document;
+      previewFrame.open();
+      previewFrame.write(code);
+      previewFrame.close();
     }
-
-    runBtn.addEventListener('click', ()=>{ buffers[modeSel.value] = codeBox.value; buildPreview(); localStorage.setItem('cc_practice_draft', JSON.stringify(buffers)); });
-    codeBox.addEventListener('input', ()=>{ buffers[modeSel.value] = codeBox.value; if(auto){ clearTimeout(window._t); window._t = setTimeout(()=>{ buildPreview(); localStorage.setItem('cc_practice_draft', JSON.stringify(buffers)); }, 600) } });
-    modeSel.addEventListener('change', ()=> loadMode(modeSel.value));
-    autoBtn.addEventListener('click', ()=> { auto = !auto; autoBtn.textContent = 'Auto: ' + (auto ? 'ON':'OFF'); });
-    // initial render
-    buildPreview();
   </script>
+
 </body>
 </html>
