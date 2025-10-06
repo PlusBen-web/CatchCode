@@ -1,184 +1,188 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>CatchCode — Dashboard</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | CodeLab</title>
   <style>
-    :root{--bg:#050608;--accent:#06f0df;--accent2:#2eb0ff;--muted:#9fb3c8}
-    *{box-sizing:border-box}
-    body{margin:0;font-family:Inter,system-ui, -apple-system, "Segoe UI";min-height:100vh;background:linear-gradient(180deg,#02040a 0%,var(--bg) 100%);color:#e6eef6}
-    .header{background:rgba(0,0,0,0.36);padding:14px 20px;position:sticky;top:0}
-    .header-inner{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
-    .brand{display:flex;gap:12px;align-items:center}
-    .logo{width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;color:#021;font-weight:900;box-shadow:0 10px 40px rgba(46,176,255,0.08)}
-    .navlinks{display:flex;gap:18px}
-    .navlinks a{color:#e6eef6;text-decoration:none;font-weight:600;padding:8px;border-radius:8px}
-    .navlinks a:hover{color:var(--accent);text-shadow:0 0 14px rgba(6,182,212,0.14)}
-    .container{max-width:1100px;margin:28px auto;padding:0 18px}
-    .hero{text-align:center;padding:48px 10px}
-    .hero h1{font-size:40px;color:var(--accent);text-shadow:0 10px 40px rgba(6,182,212,0.08);margin:0}
-    .muted{color:var(--muted)}
-    .overview{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-top:24px}
-    .ov-card{width:220px;padding:18px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));border:1px solid rgba(255,255,255,0.03);box-shadow:0 8px 30px rgba(3,10,23,0.5);transition:transform .22s, box-shadow .22s}
-    .ov-card:hover{transform:translateY(-8px);box-shadow:0 24px 60px rgba(46,176,255,0.08)}
-    .ov-title{color:var(--accent2);font-weight:800;margin-bottom:8px}
-    .grid{display:grid;grid-template-columns:1fr 320px;gap:18px;margin-top:28px}
-    .card{background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 10px 30px rgba(3,10,23,0.6)}
-    .quick-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
-    .quick{padding:12px;border-radius:10px;background:transparent;cursor:pointer;transition:transform .18s}
-    .quick:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(6,182,212,0.06)}
-    .actions{display:flex;gap:10px;margin-top:12px}
-    .btn{padding:8px 12px;border-radius:10px;border:0;cursor:pointer;font-weight:700}
-    .btn-primary{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#021}
-    footer{padding:14px;text-align:center;color:#7f9;opacity:.6;margin-top:34px}
-    @media(max-width:920px){.grid{grid-template-columns:1fr}}
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0b0c10, #1f2833);
+      color: #fff;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      animation: fadeIn 1.2s ease;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(15px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+      background: rgba(0,0,0,0.3);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 20px rgba(0,255,255,0.3);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: cyan;
+      text-shadow: 0 0 10px cyan;
+    }
+
+    .menu a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: #ccc;
+      font-weight: 500;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .menu a:hover, .menu a.active {
+      color: cyan;
+      text-shadow: 0 0 10px cyan;
+    }
+
+    .menu a::after {
+      content: "";
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: cyan;
+      transition: width 0.3s;
+      box-shadow: 0 0 10px cyan;
+    }
+
+    .menu a:hover::after, .menu a.active::after {
+      width: 100%;
+    }
+
+    .welcome {
+      text-align: center;
+      font-size: 2.2rem;
+      margin-top: 50px;
+      text-shadow: 0 0 15px cyan;
+      animation: pulse 2s infinite alternate;
+    }
+
+    @keyframes pulse {
+      from {text-shadow: 0 0 10px cyan;}
+      to {text-shadow: 0 0 30px cyan;}
+    }
+
+    .overview {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 25px;
+      padding: 60px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.05);
+      border-radius: 15px;
+      padding: 25px;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(0,255,255,0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 30px cyan;
+    }
+
+    .card h3 {
+      color: cyan;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      color: #ccc;
+      font-size: 1.1rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #aaa;
+      background: rgba(0,0,0,0.3);
+      border-top: 1px solid rgba(0,255,255,0.2);
+    }
+
+    footer span {
+      color: cyan;
+      text-shadow: 0 0 10px cyan;
+    }
   </style>
 </head>
 <body>
-  <header class="header">
-    <div class="header-inner">
-      <div class="brand">
-        <div class="logo">CC</div>
-        <div style="font-weight:800;color:var(--accent2)">CatchCode</div>
-      </div>
-      <nav class="navlinks">
-        <a href="dashboard.html" class="active">Dashboard</a>
-        <a href="learn.html">Learn</a>
-        <a href="practice.html">Practice</a>
-        <a href="leaderboard.html">Leaderboard</a>
-        <a href="profile.html">Profile</a>
-      </nav>
+
+  <nav>
+    <div class="logo">CodeLab ⚡</div>
+    <div class="menu">
+      <a href="dashboard.html" class="active">Dashboard</a>
+      <a href="learn.html">Learn</a>
+      <a href="practice.html">Practice</a>
+      <a href="leaderboard.html">Leaderboard</a>
+      <a href="profile.html">Profile</a>
     </div>
-  </header>
+  </nav>
 
-  <main class="container">
-    <section class="hero">
-      <h1>Welcome to CatchCode</h1>
-      <p class="muted">Your all-in-one coding arena. Start learning, practicing, and climbing the leaderboard.</p>
-    </section>
+  <div class="welcome">
+    Welcome back, <span id="userName">PlusBen</span> 👋
+  </div>
 
-    <!-- Overview placeholders (animated glow on hover) -->
-    <section class="overview">
-      <div class="ov-card">
-        <div class="ov-title">Active Users</div>
-        <div class="muted" id="ov-users">—</div>
-      </div>
-      <div class="ov-card">
-        <div class="ov-title">Courses Available</div>
-        <div class="muted" id="ov-courses">—</div>
-      </div>
-      <div class="ov-card">
-        <div class="ov-title">Total XP Earned</div>
-        <div class="muted" id="ov-xp">—</div>
-      </div>
-      <div class="ov-card">
-        <div class="ov-title">Leaderboard Entries</div>
-        <div class="muted" id="ov-lead">—</div>
-      </div>
-    </section>
-
-    <div class="grid">
-      <div>
-        <div class="card">
-          <h3 style="margin:0 0 10px 0">Welcome</h3>
-          <div id="welcomeMsg" class="muted">Loading user...</div>
-          <div class="quick-grid">
-            <div class="quick" onclick="location.href='learn.html'"><strong>Learn</strong><div class="muted">Open lessons</div></div>
-            <div class="quick" onclick="location.href='practice.html'"><strong>Practice</strong><div class="muted">Jump into the editor</div></div>
-            <div class="quick" onclick="location.href='leaderboard.html'"><strong>Leaderboard</strong><div class="muted">See top learners</div></div>
-          </div>
-          <div class="actions">
-            <button class="btn btn-primary" id="demoXP">+50 XP (demo)</button>
-            <button class="btn btn-primary" id="demoCourse">Complete Course (demo)</button>
-          </div>
-        </div>
-
-        <div class="card" style="margin-top:16px">
-          <h3 style="margin:0 0 10px 0">Recent Activity</h3>
-          <div id="recentActivity" class="muted">No activity yet — practice to create activity logs.</div>
-        </div>
-      </div>
-
-      <aside>
-        <div class="card">
-          <h4 style="margin:0 0 8px 0">Profile Snapshot</h4>
-          <div id="snap" class="muted">Loading...</div>
-          <div style="margin-top:10px">
-            <a href="profile.html" class="btn btn-primary">Open Profile</a>
-          </div>
-        </div>
-
-        <div class="card" style="margin-top:12px">
-          <h4 style="margin:0 0 8px 0">Quick Links</h4>
-          <div style="display:flex;flex-direction:column;gap:8px;margin-top:6px">
-            <a href="learn.html" style="color:var(--muted);text-decoration:none">Browse Lessons</a>
-            <a href="practice.html" style="color:var(--muted);text-decoration:none">Open Practice</a>
-            <a href="leaderboard.html" style="color:var(--muted);text-decoration:none">View Leaderboard</a>
-          </div>
-        </div>
-      </aside>
+  <section class="overview">
+    <div class="card">
+      <h3>🏆 Rank</h3>
+      <p>Elite Coder</p>
     </div>
-  </main>
+    <div class="card">
+      <h3>⚡ XP</h3>
+      <p>2450 Points</p>
+    </div>
+    <div class="card">
+      <h3>📚 Courses Completed</h3>
+      <p>12</p>
+    </div>
+    <div class="card">
+      <h3>🔥 Active Streak</h3>
+      <p>7 Days</p>
+    </div>
+  </section>
 
-  <footer>© 2025 CatchCode | Copyright PlusBen</footer>
+  <footer>
+    <p>Copyright © 2025 <span>PlusBen</span>. All Rights Reserved.</p>
+  </footer>
 
   <script>
-    // small client-side logic: uses Firebase if present, else localStorage
-    function getLocalUser(){ try{return JSON.parse(localStorage.getItem('cc_user')||'null');}catch(e){return null}}
-    function saveLocalUser(u){ localStorage.setItem('cc_user', JSON.stringify(u)) }
+    // Simple local data linkup (from signup or localStorage)
+    const userName = localStorage.getItem('userName') || 'PlusBen';
+    document.getElementById('userName').textContent = userName;
 
-    // demo placeholders counters
-    document.getElementById('ov-users').textContent = '12 (demo)';
-    document.getElementById('ov-courses').textContent = '6 (demo)';
-    document.getElementById('ov-xp').textContent = '3,240 (demo)';
-    document.getElementById('ov-lead').textContent = '38 (demo)';
-    // load user display
-    (function loadUser(){
-      try{
-        if(window.firebase && firebase.auth){
-          // if Firebase is configured, try to pull user email (compat)
-          firebase.auth().onAuthStateChanged(user=>{
-            if(!user) {
-              const lu = getLocalUser();
-              if(lu) setWelcome(lu);
-              return;
-            }
-            setWelcome({ username: user.displayName || user.email.split('@')[0], email: user.email, xp:0, level:1 });
-          });
-        } else {
-          const lu = getLocalUser();
-          if(lu) setWelcome(lu); else document.getElementById('welcomeMsg').textContent = 'Not signed in — use Sign in page';
-        }
-      }catch(e){ console.warn(e); const lu = getLocalUser(); if(lu) setWelcome(lu) }
-    })();
-
-    function setWelcome(u){
-      document.getElementById('welcomeMsg').textContent = `Welcome back, ${u.username || u.email || 'Coder'} 👋`;
-      document.getElementById('snap').textContent = `${u.username || u.email || 'User'} • Level ${u.level||1} • ${u.xp||0} XP`;
-      // recent activity placeholder
-      document.getElementById('recentActivity').textContent = (u.activity && u.activity.length)? u.activity.slice(-5).reverse().join(' | '): 'No recent activity';
-    }
-
-    // Demo add XP and course complete
-    document.getElementById('demoXP').addEventListener('click', ()=>{
-      const u = getLocalUser() || { username:'Demo', xp:0, level:1, activity:[] };
-      u.xp = (u.xp || 0) + 50;
-      u.activity = u.activity || [];
-      u.activity.push(`+50 XP — ${new Date().toLocaleTimeString()}`);
-      saveLocalUser(u);
-      setWelcome(u);
-      alert('Demo +50 XP applied (saved locally).');
+    // Hover glow for Learn menu
+    const learnLink = document.querySelector('.menu a[href="learn.html"]');
+    learnLink.addEventListener('mouseover', () => {
+      learnLink.style.textShadow = '0 0 20px cyan';
     });
-
-    document.getElementById('demoCourse').addEventListener('click', ()=>{
-      const u = getLocalUser() || { username:'Demo', courses:0, activity:[] };
-      u.courses = (u.courses || 0) + 1;
-      u.activity = u.activity || [];
-      u.activity.push(`Completed course — ${new Date().toLocaleTimeString()}`);
-      saveLocalUser(u);
-      setWelcome(u);
-      alert('Demo course complete saved locally.');
+    learnLink.addEventListener('mouseout', () => {
+      learnLink.style.textShadow = '';
     });
   </script>
 </body>
