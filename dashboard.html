@@ -1,163 +1,185 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>CatchCode — Dashboard</title>
-
-<!-- inline styles + sci-fi font (Orbitron) -->
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
-:root{
-  --bg:#000;
-  --panel:#070707;
-  --neon:#00ff88;
-  --muted:rgba(160,255,180,0.16);
-  --glass:rgba(255,255,255,0.02);
-  --radius:14px;
-  --speed:1200ms;
-}
-*{box-sizing:border-box}
-html,body{height:100%;margin:0;font-family:Orbitron,ui-sans-serif,system-ui,monospace;background:linear-gradient(180deg,#000,#020303);color:var(--neon);-webkit-font-smoothing:antialiased}
-a{color:inherit;text-decoration:none}
-.header{
-  display:flex;justify-content:space-between;align-items:center;padding:18px 28px;
-  border-bottom:1px solid rgba(0,255,136,0.04);
-  background:linear-gradient(90deg, rgba(0,255,136,0.02), rgba(0,0,0,0));
-}
-.brand{display:flex;gap:12px;align-items:center}
-.logoMark{width:54px;height:54px;border-radius:12px;background:linear-gradient(135deg, rgba(0,255,136,0.12), rgba(0,255,136,0.02));display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 8px 36px rgba(0,255,136,0.04) inset}
-.siteTitle{font-size:20px;font-weight:700;letter-spacing:0.6px; text-shadow: 0 0 14px rgba(0,255,136,0.18);}
-.siteSubtitle{font-size:12px;color:var(--muted);margin-top:2px}
-
-.nav{display:flex;gap:12px;align-items:center}
-.nav a{padding:8px 12px;border-radius:10px;transition:all .18s ease}
-.nav a.active{background:linear-gradient(90deg, rgba(0,255,136,0.06), rgba(0,255,136,0.02)); box-shadow:0 12px 40px rgba(0,255,136,0.04)}
-.nav a:hover{transform:translateY(-3px);text-shadow:0 0 10px rgba(0,255,136,0.12);}
-
-/* layout */
-.container{max-width:1200px;margin:26px auto;padding:18px;display:grid;grid-template-columns:2fr 1fr;gap:18px}
-.panel{
-  background:linear-gradient(180deg,rgba(255,255,255,0.01),rgba(255,255,255,0.00));
-  border-radius:var(--radius);padding:18px;border:1px solid rgba(0,255,136,0.04);
-  box-shadow: 0 10px 60px rgba(0,255,136,0.03);
-  transition:transform .28s cubic-bezier(.2,.9,.3,1), box-shadow .28s;
-}
-.panel:hover{transform:translateY(-8px);box-shadow:0 36px 120px rgba(0,255,136,0.06)}
-.heroTitle{font-size:28px;font-weight:800;color:var(--neon);text-shadow:0 0 24px rgba(0,255,136,0.18)}
-.subtitle{color:var(--muted);margin-top:6px}
-
-/* cards grid */
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:12px}
-.card{
-  background:linear-gradient(180deg,rgba(0,0,0,0.28),rgba(0,0,0,0.18));
-  border-radius:12px;padding:14px;border:1px solid rgba(0,255,136,0.03);
-  box-shadow:0 8px 30px rgba(0,255,136,0.02);
-  transition:box-shadow .3s, transform .25s;
-}
-.card:hover{box-shadow:0 30px 90px rgba(0,255,136,0.12), inset 0 0 30px rgba(0,255,136,0.02); transform:translateY(-6px)}
-.card h4{margin:0 0 6px 0;font-size:16px;color:#dfffe8}
-.card p{margin:0;color:var(--muted);font-size:13px}
-
-/* leaderboard list */
-.leaderboard ul{list-style:none;padding:0;margin:0}
-.leaderboard li{display:flex;justify-content:space-between;align-items:center;padding:10px;border-radius:10px;margin-bottom:8px;background:linear-gradient(90deg, rgba(0,0,0,0.12), rgba(0,0,0,0.04));border:1px solid rgba(0,255,136,0.02)}
-.leaderRank{font-weight:800;color:var(--neon);margin-right:10px}
-
-/* pulsing neon for headings */
-@keyframes breathe {
-  0% { text-shadow:0 0 6px rgba(0,255,136,0.06), 0 0 18px rgba(0,255,136,0.02); opacity:.95}
-  50% { text-shadow:0 0 18px rgba(0,255,136,0.18), 0 0 36px rgba(0,255,136,0.08); opacity:1 }
-  100% { text-shadow:0 0 6px rgba(0,255,136,0.06), 0 0 18px rgba(0,255,136,0.02); opacity:.95 }
-}
-.pulse { animation: breathe var(--speed) ease-in-out infinite; }
-
-/* footer */
-.footer{margin-top:16px;color:var(--muted);font-size:13px;border-top:1px solid rgba(0,255,136,0.03);padding-top:12px}
-
-/* page fade-in */
-main{opacity:0;transform:translateY(12px);transition:all .36s cubic-bezier(.2,.9,.3,1)}
-main.enter{opacity:1;transform:none}
-
-/* responsive */
-@media(max-width:980px){ .container{grid-template-columns:1fr} .nav{gap:8px} .heroTitle{font-size:22px} }
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CatchCode — Dashboard</title>
+  <style>
+    :root{--bg:#050608;--accent:#06f0df;--accent2:#2eb0ff;--muted:#9fb3c8}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui, -apple-system, "Segoe UI";min-height:100vh;background:linear-gradient(180deg,#02040a 0%,var(--bg) 100%);color:#e6eef6}
+    .header{background:rgba(0,0,0,0.36);padding:14px 20px;position:sticky;top:0}
+    .header-inner{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;color:#021;font-weight:900;box-shadow:0 10px 40px rgba(46,176,255,0.08)}
+    .navlinks{display:flex;gap:18px}
+    .navlinks a{color:#e6eef6;text-decoration:none;font-weight:600;padding:8px;border-radius:8px}
+    .navlinks a:hover{color:var(--accent);text-shadow:0 0 14px rgba(6,182,212,0.14)}
+    .container{max-width:1100px;margin:28px auto;padding:0 18px}
+    .hero{text-align:center;padding:48px 10px}
+    .hero h1{font-size:40px;color:var(--accent);text-shadow:0 10px 40px rgba(6,182,212,0.08);margin:0}
+    .muted{color:var(--muted)}
+    .overview{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-top:24px}
+    .ov-card{width:220px;padding:18px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));border:1px solid rgba(255,255,255,0.03);box-shadow:0 8px 30px rgba(3,10,23,0.5);transition:transform .22s, box-shadow .22s}
+    .ov-card:hover{transform:translateY(-8px);box-shadow:0 24px 60px rgba(46,176,255,0.08)}
+    .ov-title{color:var(--accent2);font-weight:800;margin-bottom:8px}
+    .grid{display:grid;grid-template-columns:1fr 320px;gap:18px;margin-top:28px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 10px 30px rgba(3,10,23,0.6)}
+    .quick-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+    .quick{padding:12px;border-radius:10px;background:transparent;cursor:pointer;transition:transform .18s}
+    .quick:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(6,182,212,0.06)}
+    .actions{display:flex;gap:10px;margin-top:12px}
+    .btn{padding:8px 12px;border-radius:10px;border:0;cursor:pointer;font-weight:700}
+    .btn-primary{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#021}
+    footer{padding:14px;text-align:center;color:#7f9;opacity:.6;margin-top:34px}
+    @media(max-width:920px){.grid{grid-template-columns:1fr}}
+  </style>
 </head>
 <body>
   <header class="header">
-    <div class="brand">
-      <div class="logoMark">🚀</div>
-      <div>
-        <div class="siteTitle">CatchCode</div>
-        <div class="siteSubtitle">neon green · dark lab</div>
+    <div class="header-inner">
+      <div class="brand">
+        <div class="logo">CC</div>
+        <div style="font-weight:800;color:var(--accent2)">CatchCode</div>
       </div>
+      <nav class="navlinks">
+        <a href="dashboard.html" class="active">Dashboard</a>
+        <a href="learn.html">Learn</a>
+        <a href="practice.html">Practice</a>
+        <a href="leaderboard.html">Leaderboard</a>
+        <a href="profile.html">Profile</a>
+      </nav>
     </div>
-
-    <nav class="nav" id="topNav">
-      <a href="dashboard.html" class="active">Dashboard</a>
-      <a href="learn.html">Learn</a>
-      <a href="practice.html">Practice</a>
-      <a href="profile.html">Profile</a>
-      <a href="leaderboard.html">Leaderboard</a>
-    </nav>
   </header>
 
-  <main id="main" class="">
-    <div class="container">
-      <section>
-        <div class="panel">
-          <div class="heroTitle pulse">Welcome to CatchCode</div>
-          <div class="subtitle">Level up — these are placeholders until you wire a DB.</div>
-        </div>
+  <main class="container">
+    <section class="hero">
+      <h1>Welcome to CatchCode</h1>
+      <p class="muted">Your all-in-one coding arena. Start learning, practicing, and climbing the leaderboard.</p>
+    </section>
 
-        <div class="panel" style="margin-top:12px">
-          <h3 style="color:var(--neon);margin:0 0 8px 0">Latest Courses</h3>
-          <div class="grid" id="coursesGrid">
-            <div class="card"><h4>Introduction to HTML</h4><p>Tags, elements & structure</p></div>
-            <div class="card"><h4>Simple Styling with CSS</h4><p>Selectors & layouts</p></div>
-            <div class="card"><h4>How to Write a Full Script with JS</h4><p>DOM, events, logic</p></div>
+    <!-- Overview placeholders (animated glow on hover) -->
+    <section class="overview">
+      <div class="ov-card">
+        <div class="ov-title">Active Users</div>
+        <div class="muted" id="ov-users">—</div>
+      </div>
+      <div class="ov-card">
+        <div class="ov-title">Courses Available</div>
+        <div class="muted" id="ov-courses">—</div>
+      </div>
+      <div class="ov-card">
+        <div class="ov-title">Total XP Earned</div>
+        <div class="muted" id="ov-xp">—</div>
+      </div>
+      <div class="ov-card">
+        <div class="ov-title">Leaderboard Entries</div>
+        <div class="muted" id="ov-lead">—</div>
+      </div>
+    </section>
+
+    <div class="grid">
+      <div>
+        <div class="card">
+          <h3 style="margin:0 0 10px 0">Welcome</h3>
+          <div id="welcomeMsg" class="muted">Loading user...</div>
+          <div class="quick-grid">
+            <div class="quick" onclick="location.href='learn.html'"><strong>Learn</strong><div class="muted">Open lessons</div></div>
+            <div class="quick" onclick="location.href='practice.html'"><strong>Practice</strong><div class="muted">Jump into the editor</div></div>
+            <div class="quick" onclick="location.href='leaderboard.html'"><strong>Leaderboard</strong><div class="muted">See top learners</div></div>
+          </div>
+          <div class="actions">
+            <button class="btn btn-primary" id="demoXP">+50 XP (demo)</button>
+            <button class="btn btn-primary" id="demoCourse">Complete Course (demo)</button>
           </div>
         </div>
 
-        <div class="panel" style="margin-top:12px">
-          <h3 style="color:var(--neon);margin:0 0 8px 0">Recent Activities</h3>
-          <p class="subtitle">No live feed — placeholders only.</p>
-          <div style="margin-top:8px;color:var(--muted)">• Completed "Intro to HTML" — placeholder<br>• Got a code upvote — placeholder</div>
+        <div class="card" style="margin-top:16px">
+          <h3 style="margin:0 0 10px 0">Recent Activity</h3>
+          <div id="recentActivity" class="muted">No activity yet — practice to create activity logs.</div>
         </div>
-      </section>
+      </div>
 
       <aside>
-        <div class="panel leaderboard">
-          <h3 style="color:var(--neon);margin:0 0 12px 0">Top Learners</h3>
-          <ul>
-            <li><span><strong class="leaderRank">1.</strong> plusben</span> <span>9999 XP</span></li>
-            <li><span><strong class="leaderRank">2.</strong> ByteBlazer</span> <span>4800 XP</span></li>
-            <li><span><strong class="leaderRank">3.</strong> CodeVortex</span> <span>4200 XP</span></li>
-            <li><span><strong class="leaderRank">4.</strong> NeonNinja</span> <span>3990 XP</span></li>
-            <li><span><strong class="leaderRank">5.</strong> DevStorm</span> <span>3770 XP</span></li>
-          </ul>
+        <div class="card">
+          <h4 style="margin:0 0 8px 0">Profile Snapshot</h4>
+          <div id="snap" class="muted">Loading...</div>
+          <div style="margin-top:10px">
+            <a href="profile.html" class="btn btn-primary">Open Profile</a>
+          </div>
         </div>
 
-        <div class="panel" style="margin-top:12px">
-          <h4 style="color:var(--neon);margin:0 0 8px 0">Tips</h4>
-          <div class="subtitle">Hover cards to see the neon glow. Practice supports HTML-only editing.</div>
+        <div class="card" style="margin-top:12px">
+          <h4 style="margin:0 0 8px 0">Quick Links</h4>
+          <div style="display:flex;flex-direction:column;gap:8px;margin-top:6px">
+            <a href="learn.html" style="color:var(--muted);text-decoration:none">Browse Lessons</a>
+            <a href="practice.html" style="color:var(--muted);text-decoration:none">Open Practice</a>
+            <a href="leaderboard.html" style="color:var(--muted);text-decoration:none">View Leaderboard</a>
+          </div>
         </div>
       </aside>
     </div>
-
-    <div class="footer">© 2025 CatchCode. All rights reserved.</div>
   </main>
 
-<script>
-// page enter
-document.addEventListener('DOMContentLoaded', ()=> {
-  document.getElementById('main').classList.add('enter');
+  <footer>© 2025 CatchCode | Copyright PlusBen</footer>
 
-  // nav active highlight based on url
-  Array.from(document.querySelectorAll('.nav a')).forEach(a=>{
-    if(location.pathname.endsWith(a.getAttribute('href'))) a.classList.add('active');
-  });
-});
-</script>
+  <script>
+    // small client-side logic: uses Firebase if present, else localStorage
+    function getLocalUser(){ try{return JSON.parse(localStorage.getItem('cc_user')||'null');}catch(e){return null}}
+    function saveLocalUser(u){ localStorage.setItem('cc_user', JSON.stringify(u)) }
+
+    // demo placeholders counters
+    document.getElementById('ov-users').textContent = '12 (demo)';
+    document.getElementById('ov-courses').textContent = '6 (demo)';
+    document.getElementById('ov-xp').textContent = '3,240 (demo)';
+    document.getElementById('ov-lead').textContent = '38 (demo)';
+    // load user display
+    (function loadUser(){
+      try{
+        if(window.firebase && firebase.auth){
+          // if Firebase is configured, try to pull user email (compat)
+          firebase.auth().onAuthStateChanged(user=>{
+            if(!user) {
+              const lu = getLocalUser();
+              if(lu) setWelcome(lu);
+              return;
+            }
+            setWelcome({ username: user.displayName || user.email.split('@')[0], email: user.email, xp:0, level:1 });
+          });
+        } else {
+          const lu = getLocalUser();
+          if(lu) setWelcome(lu); else document.getElementById('welcomeMsg').textContent = 'Not signed in — use Sign in page';
+        }
+      }catch(e){ console.warn(e); const lu = getLocalUser(); if(lu) setWelcome(lu) }
+    })();
+
+    function setWelcome(u){
+      document.getElementById('welcomeMsg').textContent = `Welcome back, ${u.username || u.email || 'Coder'} 👋`;
+      document.getElementById('snap').textContent = `${u.username || u.email || 'User'} • Level ${u.level||1} • ${u.xp||0} XP`;
+      // recent activity placeholder
+      document.getElementById('recentActivity').textContent = (u.activity && u.activity.length)? u.activity.slice(-5).reverse().join(' | '): 'No recent activity';
+    }
+
+    // Demo add XP and course complete
+    document.getElementById('demoXP').addEventListener('click', ()=>{
+      const u = getLocalUser() || { username:'Demo', xp:0, level:1, activity:[] };
+      u.xp = (u.xp || 0) + 50;
+      u.activity = u.activity || [];
+      u.activity.push(`+50 XP — ${new Date().toLocaleTimeString()}`);
+      saveLocalUser(u);
+      setWelcome(u);
+      alert('Demo +50 XP applied (saved locally).');
+    });
+
+    document.getElementById('demoCourse').addEventListener('click', ()=>{
+      const u = getLocalUser() || { username:'Demo', courses:0, activity:[] };
+      u.courses = (u.courses || 0) + 1;
+      u.activity = u.activity || [];
+      u.activity.push(`Completed course — ${new Date().toLocaleTimeString()}`);
+      saveLocalUser(u);
+      setWelcome(u);
+      alert('Demo course complete saved locally.');
+    });
+  </script>
 </body>
 </html>
