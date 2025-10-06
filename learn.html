@@ -1,33 +1,66 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Catch Code | Learn</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>CatchCode — Learn</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+:root{--bg:#000;--neon:#00ff88;--muted:rgba(160,255,180,0.14);--radius:12px}
+*{box-sizing:border-box}html,body{height:100%;margin:0;font-family:Orbitron,monospace;background:#000;color:var(--neon)}
+.header{display:flex;justify-content:space-between;align-items:center;padding:18px 28px;border-bottom:1px solid rgba(0,255,136,0.04)}
+.brand{display:flex;gap:12px;align-items:center}
+.logoMark{width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg, rgba(0,255,136,0.12), rgba(0,255,136,0.02));display:flex;align-items:center;justify-content:center}
+.nav{display:flex;gap:12px}
+.nav a{padding:8px 12px;border-radius:10px}
+.nav a.active{background:linear-gradient(90deg, rgba(0,255,136,0.06), rgba(0,255,136,0.02))}
+.main{max-width:1100px;margin:26px auto;padding:18px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.card{background:linear-gradient(180deg,rgba(255,255,255,0.01),rgba(255,255,255,0.00));padding:16px;border-radius:12px;border:1px solid rgba(0,255,136,0.03);transition:transform .28s,box-shadow .28s}
+.card:hover{transform:translateY(-8px);box-shadow:0 30px 90px rgba(0,255,136,0.12)}
+.card h4{margin:0 0 6px 0;color:#e6fff0}
+.card p{margin:0;color:var(--muted);font-size:13px}
+.pulse{animation:breathe 1200ms ease-in-out infinite}
+@keyframes breathe{0%{text-shadow:0 0 6px rgba(0,255,136,0.06)}50%{text-shadow:0 0 18px rgba(0,255,136,0.18)}100%{text-shadow:0 0 6px rgba(0,255,136,0.06)}}
+.footer{margin-top:18px;color:var(--muted);font-size:13px;border-top:1px solid rgba(0,255,136,0.03);padding-top:12px}
+@media(max-width:900px){.grid{grid-template-columns:1fr}}
+</style>
 </head>
-<body class="fade">
-  <header>
-    <h1 class="logo">⚡ Catch Code</h1>
-    <nav>
+<body>
+  <header class="header">
+    <div class="brand"><div class="logoMark">🚀</div><div><div style="font-weight:800;color:var(--neon)">CatchCode</div><div style="color:var(--muted);font-size:12px">learn fast</div></div></div>
+    <nav class="nav">
       <a href="dashboard.html">Dashboard</a>
       <a href="learn.html" class="active">Learn</a>
       <a href="practice.html">Practice</a>
       <a href="profile.html">Profile</a>
+      <a href="leaderboard.html">Leaderboard</a>
     </nav>
   </header>
 
-  <main class="learn-section">
-    <h2>Learn & Level Up</h2>
-    <div class="learn-grid">
-      <div class="card">Learn HTML in 5 Minutes</div>
-      <div class="card">Master CSS Basics</div>
-      <div class="card">Code JS Like a Pro</div>
-      <div class="card">Responsive Design 101</div>
+  <main class="main" id="main">
+    <h2 class="pulse" style="font-size:22px;margin:0 0 12px 0;color:var(--neon)">Learn — Bite-sized lessons</h2>
+    <p style="color:var(--muted);margin-bottom:14px">Click a card to open — placeholders for now.</p>
+
+    <div class="grid">
+      <div class="card"><h4>Learn HTML in 5 Minutes</h4><p>Quick intro to tags and structure</p></div>
+      <div class="card"><h4>Getting Started with CSS</h4><p>Make stuff glow & layout like a boss</p></div>
+      <div class="card"><h4>Intro to JavaScript Logic</h4><p>Events, DOM, and simple scripts</p></div>
+      <div class="card"><h4>Responsive Design 101</h4><p>Grid & Flex basics</p></div>
     </div>
+
+    <div class="footer">© 2025 CatchCode. All rights reserved.</div>
   </main>
 
-  <footer>© 2025 Catch Code. All rights reserved.</footer>
+<script>
+document.addEventListener('DOMContentLoaded', ()=> {
+  // nav active
+  Array.from(document.querySelectorAll('.nav a')).forEach(a=> {
+    if(location.pathname.endsWith(a.getAttribute('href'))) a.classList.add('active');
+  });
+  // reveal
+  document.getElementById('main').style.opacity=1;
+});
+</script>
 </body>
 </html>
