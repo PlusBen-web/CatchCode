@@ -1,169 +1,221 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>CatchCode — Profile</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile | CodeLab</title>
   <style>
-    :root{--bg:#050608;--accent:#06f0df;--accent2:#2eb0ff;--muted:#9fb3c8}
-    *{box-sizing:border-box}
-    body{margin:0;font-family:Inter,system-ui;color:#e6eef6;min-height:100vh;background:linear-gradient(180deg,#02040a 0%,var(--bg) 100%)}
-    .header{background:rgba(0,0,0,0.36);padding:14px}
-    .header-inner{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
-    .logo{width:48px;height:48px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;color:#021;font-weight:900;box-shadow:0 10px 40px rgba(46,176,255,0.08)}
-    .navlinks{display:flex;gap:18px}
-    .navlinks a{color:#e6eef6;text-decoration:none;font-weight:600;padding:8px}
-    .container{max-width:1100px;margin:28px auto;padding:0 18px}
-    .profile-wrap{display:flex;gap:18px;align-items:flex-start}
-    .card{background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 10px 30px rgba(3,10,23,0.6)}
-    .avatar{width:110px;height:110px;border-radius:999px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-weight:900;color:#021;font-size:34px}
-    .btn{padding:8px 12px;border-radius:8px;border:0;cursor:pointer;font-weight:700}
-    .btn-primary{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#021}
-    textarea{width:100%;height:100px;background:#081018;color:#e6eef6;border-radius:10px;padding:10px;border:1px solid rgba(255,255,255,0.03);resize:none}
-    .muted{color:var(--muted)}
-    footer{padding:12px;text-align:center;color:#888;margin-top:24px}
-    @media(max-width:900px){.profile-wrap{flex-direction:column;align-items:center}}
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0b0c10, #1f2833);
+      color: #fff;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+      background: rgba(0,0,0,0.3);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 20px rgba(0,255,255,0.3);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: cyan;
+      text-shadow: 0 0 10px cyan;
+    }
+
+    .menu a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: #ccc;
+      font-weight: 500;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .menu a:hover, .menu a.active {
+      color: cyan;
+      text-shadow: 0 0 10px cyan;
+    }
+
+    .menu a::after {
+      content: "";
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: cyan;
+      transition: width 0.3s;
+      box-shadow: 0 0 10px cyan;
+    }
+
+    .menu a:hover::after, .menu a.active::after {
+      width: 100%;
+    }
+
+    .profile-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+      animation: fadeIn 1.2s ease;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+
+    .avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: cyan;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #0b0c10;
+      box-shadow: 0 0 30px cyan;
+      text-shadow: 0 0 10px #0b0c10;
+      margin-bottom: 20px;
+      animation: pulse 2s infinite alternate;
+    }
+
+    @keyframes pulse {
+      from {box-shadow: 0 0 10px cyan;}
+      to {box-shadow: 0 0 30px cyan;}
+    }
+
+    .profile-info {
+      background: rgba(255,255,255,0.05);
+      border-radius: 15px;
+      padding: 30px;
+      width: 80%;
+      max-width: 500px;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(0,255,255,0.2);
+    }
+
+    .profile-info h2 {
+      margin-bottom: 10px;
+      color: cyan;
+      text-shadow: 0 0 10px cyan;
+    }
+
+    .info-item {
+      margin: 10px 0;
+      font-size: 1rem;
+      color: #ddd;
+    }
+
+    textarea {
+      width: 80%;
+      background: rgba(0,0,0,0.4);
+      color: cyan;
+      border: 1px solid rgba(0,255,255,0.3);
+      border-radius: 10px;
+      padding: 10px;
+      font-family: 'Poppins';
+      resize: none;
+      outline: none;
+      box-shadow: 0 0 10px rgba(0,255,255,0.2);
+    }
+
+    .actions {
+      margin-top: 20px;
+    }
+
+    button {
+      background: cyan;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      margin: 0 10px;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background: #00e6e6;
+      box-shadow: 0 0 20px cyan;
+    }
   </style>
 </head>
 <body>
-  <header class="header">
-    <div class="header-inner">
-      <div style="display:flex;align-items:center;gap:12px"><div class="logo">CC</div><div style="font-weight:800;color:var(--accent2)">CatchCode</div></div>
-      <nav class="navlinks">
-        <a href="dashboard.html">Dashboard</a>
-        <a href="learn.html">Learn</a>
-        <a href="practice.html">Practice</a>
-        <a href="leaderboard.html">Leaderboard</a>
-        <a href="profile.html" class="active">Profile</a>
-      </nav>
+
+  <nav>
+    <div class="logo">CodeLab ⚡</div>
+    <div class="menu">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="learn.html">Learn</a>
+      <a href="practice.html">Practice</a>
+      <a href="profile.html" class="active">Profile</a>
+      <a href="index.html" id="signOut">Sign Out</a>
     </div>
-  </header>
+  </nav>
 
-  <main class="container">
-    <section style="text-align:center;margin-bottom:18px">
-      <h2 style="color:var(--accent)">Your Profile</h2>
-      <p class="muted">View & edit your bio, check rank, XP and courses completed.</p>
-    </section>
+  <div class="profile-container">
+    <div class="avatar" id="userAvatar">PB</div>
+    <div class="profile-info">
+      <h2 id="username">PlusBen</h2>
+      <div class="info-item">🏆 Rank: <span id="rank">Pro Coder</span></div>
+      <div class="info-item">⚡ XP: <span id="xp">2450</span></div>
+      <div class="info-item">📚 Courses Completed: <span id="courses">12</span></div>
+      <div class="info-item">📝 Bio: <span id="bio">"Just a coder chasing innovation."</span></div>
 
-    <div class="profile-wrap">
-      <div class="card" style="display:flex;flex-direction:column;align-items:center;gap:12px">
-        <div id="avatar" class="avatar">PB</div>
-        <h3 id="pname">Loading...</h3>
-        <div class="muted" id="pmeta">—</div>
-        <div style="display:flex;gap:8px">
-          <button id="editBtn" class="btn btn-primary">Edit Bio</button>
-          <button id="signOut" class="btn">Sign Out</button>
-        </div>
-      </div>
-
-      <div style="flex:1;display:flex;flex-direction:column;gap:12px">
-        <div class="card">
-          <h4 style="margin:0 0 8px 0">Stats</h4>
-          <div style="display:flex;gap:14px">
-            <div><div style="font-weight:800;font-size:20px" id="xp">0</div><div class="muted">XP</div></div>
-            <div><div style="font-weight:800;font-size:20px" id="lvl">1</div><div class="muted">Level</div></div>
-            <div><div style="font-weight:800;font-size:20px" id="courses">0</div><div class="muted">Courses</div></div>
-          </div>
-        </div>
-
-        <div class="card">
-          <h4 style="margin:0 0 8px 0">Bio</h4>
-          <div id="bioView" class="muted">No bio yet.</div>
-          <textarea id="bioEdit" style="display:none"></textarea>
-          <div style="margin-top:8px"><button id="saveBio" class="btn btn-primary" style="display:none">Save</button></div>
-        </div>
-
-        <div class="card">
-          <h4 style="margin:0 0 8px 0">Recent Activity</h4>
-          <div id="activity" class="muted">No recent activity.</div>
-        </div>
+      <div class="actions">
+        <button id="editBtn">Edit Bio</button>
+        <button id="saveBtn" style="display:none;">Save</button>
       </div>
     </div>
-  </main>
-
-  <footer>© 2025 CatchCode | PlusBen</footer>
+  </div>
 
   <script>
-    // profile page: loads from Firebase if available; else from localStorage.
-    function getLocalUser(){ try{return JSON.parse(localStorage.getItem('cc_user')||'null');}catch(e){return null} }
-    function saveLocalUser(u){ localStorage.setItem('cc_user', JSON.stringify(u)) }
+    const editBtn = document.getElementById('editBtn');
+    const saveBtn = document.getElementById('saveBtn');
+    const bioSpan = document.getElementById('bio');
 
-    // helper to render user object
-    function renderUser(u){
-      if(!u) return;
-      const initials = (u.username || (u.email||'?').split('@')[0] || 'User').split(' ').map(x=>x[0]).slice(0,2).join('').toUpperCase();
-      document.getElementById('avatar').textContent = initials;
-      document.getElementById('pname').textContent = u.username || u.email || 'User';
-      document.getElementById('pmeta').textContent = `${u.email || ''}`;
-      document.getElementById('xp').textContent = u.xp || 0;
-      document.getElementById('lvl').textContent = u.level || 1;
-      document.getElementById('courses').textContent = u.courses || 0;
-      document.getElementById('bioView').textContent = u.bio || 'No bio yet.';
-      if(Array.isArray(u.activity) && u.activity.length) document.getElementById('activity').textContent = u.activity.slice(-6).reverse().join(' | ');
-    }
-
-    (function init(){
-      try {
-        if(window.firebase && firebase.auth){
-          firebase.auth().onAuthStateChanged(user=>{
-            if(!user){ const lu = getLocalUser(); if(lu) renderUser(lu); else location.href='index.html'; return; }
-            // try to read realtime DB if available
-            try{
-              const db = firebase.database();
-              db.ref('users/' + user.uid).once('value').then(snap=>{
-                const d = snap.val() || {};
-                const u = { email:user.email, username: d.username || user.email.split('@')[0], xp: d.xp || 0, level: d.level || 1, courses: d.courses || 0, bio: d.bio || '', activity: d.activity || [] };
-                saveLocalUser(u); renderUser(u);
-              }).catch(()=>{ const lu = getLocalUser(); if(lu) renderUser(lu); });
-            }catch(e){ const lu = getLocalUser(); if(lu) renderUser(lu); }
-          });
-        } else {
-          const lu = getLocalUser();
-          if(!lu) return location.href='index.html';
-          renderUser(lu);
-        }
-      } catch(e){ console.warn(e); const lu = getLocalUser(); if(lu) renderUser(lu); }
-    })();
-
-    // edit bio flow
-    document.getElementById('editBtn').addEventListener('click', ()=>{
-      const bioEdit = document.getElementById('bioEdit'), bioView = document.getElementById('bioView');
-      bioEdit.style.display = 'block'; bioView.style.display = 'none';
-      bioEdit.value = bioView.textContent==='No bio yet.' ? '' : bioView.textContent;
-      document.getElementById('saveBio').style.display='inline-block';
+    editBtn.addEventListener('click', () => {
+      const currentBio = bioSpan.textContent.replace(/"/g, '');
+      bioSpan.innerHTML = `<textarea id="bioEdit">${currentBio}</textarea>`;
+      editBtn.style.display = 'none';
+      saveBtn.style.display = 'inline-block';
     });
 
-    document.getElementById('saveBio').addEventListener('click', async ()=>{
-      const newBio = document.getElementById('bioEdit').value.trim();
-      // update local storage
-      const u = getLocalUser() || { username:'User', email:'', xp:0, level:1, courses:0, bio:'' };
-      u.bio = newBio;
-      saveLocalUser(u);
-      // if firebase available, try to write to DB
-      try{
-        if(window.firebase && firebase.auth){
-          const user = firebase.auth().currentUser;
-          if(user){
-            await firebase.database().ref('users/' + user.uid + '/bio').set(newBio);
-          }
-        }
-      }catch(e){ console.warn('Firebase bio save failed', e) }
-      document.getElementById('bioEdit').style.display='none';
-      document.getElementById('bioView').style.display='block';
-      document.getElementById('bioView').textContent = newBio || 'No bio yet.';
-      document.getElementById('saveBio').style.display='none';
-      alert('Bio saved!');
+    saveBtn.addEventListener('click', () => {
+      const newBio = document.getElementById('bioEdit').value;
+      bioSpan.textContent = `"${newBio}"`;
+      editBtn.style.display = 'inline-block';
+      saveBtn.style.display = 'none';
+      localStorage.setItem('userBio', newBio);
     });
 
-    // sign out
-    document.getElementById('signOut').addEventListener('click', async ()=>{
-      try{
-        if(window.firebase && firebase.auth){
-          await firebase.auth().signOut();
-        }
-      }catch(e){ console.warn('firebase signout', e) }
-      localStorage.removeItem('cc_user');
-      location.href = 'index.html';
+    window.onload = () => {
+      const savedBio = localStorage.getItem('userBio');
+      if (savedBio) bioSpan.textContent = `"${savedBio}"`;
+    };
+
+    document.getElementById('signOut').addEventListener('click', (e) => {
+      e.preventDefault();
+      localStorage.clear();
+      window.location.href = 'index.html';
     });
   </script>
 </body>
