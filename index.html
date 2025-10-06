@@ -1,11 +1,156 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="refresh" content="0;url=dashboard.html">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>CatchCode — Redirect</title>
-  <style>body{background:#000;color:#0f0;font-family:monospace;display:flex;align-items:center;justify-content:center;height:100vh;margin:0}p{filter:drop-shadow(0 0 8px rgba(0,255,153,0.25))} </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CatchCode — Sign In</title>
+  <style>
+    :root{
+      --bg:#050608; --accent:#06f0df; --accent2:#2eb0ff; --muted:#9fb3c8;
+    }
+    *{box-sizing:border-box}
+    body{
+      min-height:100vh;margin:0;font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto;
+      background:linear-gradient(180deg,#02040a 0%,var(--bg) 100%); color:#e6eef6;
+      display:flex;align-items:center;justify-content:center;
+    }
+    .wrap{width:100%;max-width:940px;padding:28px}
+    .topbar{display:flex;justify-content:space-between;align-items:center;padding:18px 0}
+    .brand{display:flex;align-items:center;gap:14px}
+    .logo{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;color:#021;font-weight:900;box-shadow:0 10px 40px rgba(46,176,255,0.08)}
+    .nav a{color:#dbeef5;text-decoration:none;margin-left:18px;font-weight:600}
+    .hero{background:transparent;text-align:center;padding:40px 20px}
+    .hero h1{font-size:40px;color:var(--accent);text-shadow:0 10px 40px rgba(6,182,212,0.08);margin:0}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005)); padding:20px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 10px 40px rgba(3,10,23,0.6);max-width:520px;margin:24px auto}
+    label{display:block;color:var(--muted);font-size:13px;margin-top:10px}
+    input{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:inherit}
+    .row{display:flex;gap:10px;margin-top:14px;align-items:center}
+    .btn{padding:10px 14px;border-radius:10px;border:0;cursor:pointer;font-weight:700}
+    .btn-primary{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#021}
+    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.03);color:var(--muted)}
+    .muted{color:var(--muted);font-size:13px;margin-top:8px}
+    .footer{margin-top:20px;color:#8aa;font-size:13px;text-align:center}
+    .fade-in {animation:fade .45s ease both}
+    @keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  </style>
 </head>
-<body><p>Redirecting to CatchCode dashboard…</p></body>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <div class="logo">CC</div>
+        <div style="font-weight:800;color:var(--accent2)">CatchCode</div>
+      </div>
+      <div class="nav">
+        <a href="learn.html">Learn</a>
+        <a href="practice.html">Practice</a>
+        <a href="leaderboard.html">Leaderboard</a>
+        <a href="profile.html">Profile</a>
+      </div>
+    </div>
+
+    <section class="hero">
+      <h1 class="fade-in">Welcome to CatchCode 🚀</h1>
+      <p class="muted">Sign in to access your dashboard, practice arena, and courses.</p>
+    </section>
+
+    <div class="card fade-in" role="form" aria-label="Sign in form">
+      <label for="email">Email</label>
+      <input id="email" type="email" placeholder="you@school.edu" />
+
+      <label for="password">Password</label>
+      <input id="password" type="password" placeholder="choose a strong password" />
+
+      <div class="row">
+        <button id="signin" class="btn btn-primary">Sign in</button>
+        <button id="signup" class="btn btn-ghost">Create account</button>
+      </div>
+
+      <div id="msg" class="muted"></div>
+    </div>
+
+    <div class="footer">© 2025 CatchCode | Copyright PlusBen</div>
+  </div>
+
+  <script>
+    // Lightweight sign-in/sign-up that uses Firebase Auth if it's been loaded and configured.
+    const msg = document.getElementById('msg');
+    const email = document.getElementById('email');
+    const password = document.getElementById('password');
+
+    function fallbackSaveSession(emailVal){
+      const user = { email: emailVal, username: emailVal.split('@')[0], xp:0, level:1, rank:0, bio:'' };
+      localStorage.setItem('cc_user', JSON.stringify(user));
+      return user;
+    }
+
+    async function tryFirebaseSignIn(emailV, passV, isSignUp=false){
+      try {
+        if (!window.firebaseCompatAvailable) throw new Error('No Firebase loaded');
+        // we use compat global if user included it earlier; otherwise fallback
+        if(isSignUp){
+          const auth = firebase.auth();
+          const cred = await auth.createUserWithEmailAndPassword(emailV, passV);
+          // also ensure DB record if realtime exists
+          try{ firebase.database().ref('users/' + cred.user.uid).set({ username: emailV.split('@')[0], xp:0, level:1, rank:0, bio:'' }) }catch(e){}
+          return { uid: cred.user.uid, email: cred.user.email };
+        } else {
+          const auth = firebase.auth();
+          const cred = await auth.signInWithEmailAndPassword(emailV, passV);
+          return { uid: cred.user.uid, email: cred.user.email };
+        }
+      } catch (e) {
+        throw e;
+      }
+    }
+
+    document.getElementById('signin').addEventListener('click', async ()=>{
+      msg.textContent = '';
+      const e = email.value.trim(), p = password.value;
+      if(!e || !p) return msg.textContent = 'Enter email & password';
+      // try firebase if present (check both modular and compat)
+      try {
+        // If developer included Firebase compat scripts earlier, `firebase` object exists
+        if(window.firebase && firebase.auth){
+          // mark compat usage for other pages
+          window.firebaseCompatAvailable = true;
+          const auth = firebase.auth();
+          const userCred = await auth.signInWithEmailAndPassword(e, p);
+          // redirect
+          window.location.href = 'dashboard.html';
+          return;
+        }
+        // Try modular (rare in plain pages) via global firebaseApp? skip here.
+      } catch(err){
+        console.warn('Firebase sign-in failed, fallback to local mock', err);
+      }
+
+      // Fallback: save simple user to localStorage and redirect
+      fallbackSaveSession(e);
+      window.location.href = 'dashboard.html';
+    });
+
+    document.getElementById('signup').addEventListener('click', async ()=>{
+      msg.textContent = '';
+      const e = email.value.trim(), p = password.value;
+      if(!e || !p) return msg.textContent = 'Enter email & password';
+      try {
+        if(window.firebase && firebase.auth){
+          window.firebaseCompatAvailable = true;
+          const auth = firebase.auth();
+          const cred = await auth.createUserWithEmailAndPassword(e, p);
+          try{ firebase.database().ref('users/' + cred.user.uid).set({ username: e.split('@')[0], xp:0, level:1, rank:0, bio:'' }) }catch(e){}
+          window.location.href = 'dashboard.html';
+          return;
+        }
+      } catch(err){
+        console.warn('Firebase create user failed, fallback to local mock', err);
+      }
+
+      // fallback
+      fallbackSaveSession(e);
+      window.location.href = 'dashboard.html';
+    });
+  </script>
+</body>
 </html>
