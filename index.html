@@ -1,153 +1,63 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sign In | CodeVerse</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+import { auth, db, createUserWithEmailAndPassword, signInWithEmailAndPassword, setDoc, doc, getDoc } from './firebase-config.js';
 
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: radial-gradient(circle at top, #0a0f1c, #02050b);
-      color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      overflow: hidden;
-    }
+const signupForm = document.getElementById('signupForm');
+const loginForm = document.getElementById('loginForm');
+const toLogin = document.getElementById('toLogin');
+const toSignup = document.getElementById('toSignup');
 
-    .auth-container {
-      background: rgba(255, 255, 255, 0.05);
-      padding: 2rem;
-      border-radius: 1rem;
-      box-shadow: 0 0 25px rgba(0, 150, 255, 0.4);
-      width: 350px;
-      text-align: center;
-      animation: fadeIn 1.2s ease;
-    }
+toLogin.onclick = () => {
+  signupForm.style.display = 'none';
+  loginForm.style.display = 'block';
+};
+toSignup.onclick = () => {
+  loginForm.style.display = 'none';
+  signupForm.style.display = 'block';
+};
 
-    .auth-container h1 {
-      font-size: 1.8rem;
-      margin-bottom: 1rem;
-      text-shadow: 0 0 15px cyan;
-    }
+// SIGN UP
+document.getElementById('signupBtn').addEventListener('click', async () => {
+  const username = document.getElementById('signupName').value;
+  const email = document.getElementById('signupEmail').value;
+  const password = document.getElementById('signupPassword').value;
 
-    input {
-      width: 90%;
-      padding: 10px;
-      margin: 10px 0;
-      border: none;
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.1);
-      color: #fff;
-      outline: none;
-      transition: 0.3s;
-    }
+  try {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
 
-    input:focus {
-      box-shadow: 0 0 10px cyan;
-    }
-
-    button {
-      width: 100%;
-      padding: 12px;
-      margin-top: 10px;
-      background: linear-gradient(90deg, #00bcd4, #006eff);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: 0.4s;
-    }
-
-    button:hover {
-      box-shadow: 0 0 15px #00bcd4;
-      transform: scale(1.05);
-    }
-
-    p {
-      margin-top: 10px;
-      font-size: 0.9rem;
-      color: #bbb;
-    }
-
-    a {
-      color: cyan;
-      cursor: pointer;
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.95); }
-      to { opacity: 1; transform: scale(1); }
-    }
-  </style>
-</head>
-<body>
-  <div class="auth-container">
-    <h1>Welcome to CodeVerse</h1>
-
-    <div id="signupForm">
-      <input type="text" id="signupName" placeholder="Username" required />
-      <input type="email" id="signupEmail" placeholder="Email" required />
-      <input type="password" id="signupPassword" placeholder="Password" required />
-      <button id="signupBtn">Sign Up</button>
-      <p>Already have an account? <a id="toLogin">Sign In</a></p>
-    </div>
-
-    <div id="loginForm" style="display:none;">
-      <input type="email" id="loginEmail" placeholder="Email" required />
-      <input type="password" id="loginPassword" placeholder="Password" required />
-      <button id="loginBtn">Sign In</button>
-      <p>Don’t have an account? <a id="toSignup">Create one</a></p>
-    </div>
-  </div>
-
-  <script type="module" src="firebase-config.js"></script>
-  <script type="module">
-    import { auth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from './firebase-config.js';
-
-    const signupForm = document.getElementById('signupForm');
-    const loginForm = document.getElementById('loginForm');
-    const toLogin = document.getElementById('toLogin');
-    const toSignup = document.getElementById('toSignup');
-
-    toLogin.onclick = () => {
-      signupForm.style.display = 'none';
-      loginForm.style.display = 'block';
-    };
-    toSignup.onclick = () => {
-      loginForm.style.display = 'none';
-      signupForm.style.display = 'block';
-    };
-
-    document.getElementById('signupBtn').addEventListener('click', async () => {
-      const email = document.getElementById('signupEmail').value;
-      const password = document.getElementById('signupPassword').value;
-      try {
-        await createUserWithEmailAndPassword(auth, email, password);
-        alert('Account created successfully!');
-        window.location.href = 'dashboard.html';
-      } catch (error) {
-        alert(error.message);
-      }
+    // Save to Firestore
+    await setDoc(doc(db, "users", user.uid), {
+      username: username,
+      email: email,
+      createdAt: new Date().toISOString()
     });
 
-    document.getElementById('loginBtn').addEventListener('click', async () => {
-      const email = document.getElementById('loginEmail').value;
-      const password = document.getElementById('loginPassword').value;
-      try {
-        await signInWithEmailAndPassword(auth, email, password);
-        alert('Login successful!');
-        window.location.href = 'dashboard.html';
-      } catch (error) {
-        alert(error.message);
-      }
-    });
-  </script>
-</body>
-</html>
+    localStorage.setItem('username', username);
+    alert('Account created successfully!');
+    window.location.href = 'dashboard.html';
+  } catch (error) {
+    alert(error.message);
+  }
+});
+
+// SIGN IN
+document.getElementById('loginBtn').addEventListener('click', async () => {
+  const email = document.getElementById('loginEmail').value;
+  const password = document.getElementById('loginPassword').value;
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+
+    // Retrieve username
+    const docRef = doc(db, "users", user.uid);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      const username = docSnap.data().username;
+      localStorage.setItem('username', username);
+    }
+
+    alert('Login successful!');
+    window.location.href = 'dashboard.html';
+  } catch (error) {
+    alert(error.message);
+  }
+});
