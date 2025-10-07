@@ -1,63 +1,152 @@
-import { auth, db, createUserWithEmailAndPassword, signInWithEmailAndPassword, setDoc, doc, getDoc } from './firebase-config.js';
-
-const signupForm = document.getElementById('signupForm');
-const loginForm = document.getElementById('loginForm');
-const toLogin = document.getElementById('toLogin');
-const toSignup = document.getElementById('toSignup');
-
-toLogin.onclick = () => {
-  signupForm.style.display = 'none';
-  loginForm.style.display = 'block';
-};
-toSignup.onclick = () => {
-  loginForm.style.display = 'none';
-  signupForm.style.display = 'block';
-};
-
-// SIGN UP
-document.getElementById('signupBtn').addEventListener('click', async () => {
-  const username = document.getElementById('signupName').value;
-  const email = document.getElementById('signupEmail').value;
-  const password = document.getElementById('signupPassword').value;
-
-  try {
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    const user = userCredential.user;
-
-    // Save to Firestore
-    await setDoc(doc(db, "users", user.uid), {
-      username: username,
-      email: email,
-      createdAt: new Date().toISOString()
-    });
-
-    localStorage.setItem('username', username);
-    alert('Account created successfully!');
-    window.location.href = 'dashboard.html';
-  } catch (error) {
-    alert(error.message);
-  }
-});
-
-// SIGN IN
-document.getElementById('loginBtn').addEventListener('click', async () => {
-  const email = document.getElementById('loginEmail').value;
-  const password = document.getElementById('loginPassword').value;
-  try {
-    const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    const user = userCredential.user;
-
-    // Retrieve username
-    const docRef = doc(db, "users", user.uid);
-    const docSnap = await getDoc(docRef);
-    if (docSnap.exists()) {
-      const username = docSnap.data().username;
-      localStorage.setItem('username', username);
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CatchCode | Sign In</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: radial-gradient(circle at top left, #000, #0a0a0a);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
     }
 
-    alert('Login successful!');
-    window.location.href = 'dashboard.html';
-  } catch (error) {
-    alert(error.message);
-  }
-});
+    .container {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 40px;
+      border-radius: 20px;
+      width: 350px;
+      text-align: center;
+      box-shadow: 0 0 20px #00b3ff;
+      animation: pulse 2s infinite alternate;
+    }
+
+    @keyframes pulse {
+      from { box-shadow: 0 0 20px #00b3ff; }
+      to { box-shadow: 0 0 40px #00eaff; }
+    }
+
+    h2 {
+      color: #00b3ff;
+      margin-bottom: 20px;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      background: #1b1b1b;
+      color: #fff;
+      font-size: 14px;
+    }
+
+    button {
+      background: #00b3ff;
+      border: none;
+      padding: 12px;
+      width: 100%;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 10px;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #00eaff;
+      transform: scale(1.05);
+    }
+
+    p {
+      font-size: 13px;
+      margin-top: 10px;
+    }
+
+    a {
+      color: #00eaff;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2 id="formTitle">Sign In</h2>
+    <input type="text" id="username" placeholder="Username" style="display: none;" />
+    <input type="email" id="email" placeholder="Email" />
+    <input type="password" id="password" placeholder="Password" />
+    <button id="authButton">Sign In</button>
+    <p id="toggleText">Don't have an account? <a id="toggleForm">Sign Up</a></p>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCmUGqyM9fE7XY3daIYA-KFuvsdpqOVr-I",
+      authDomain: "catchcode-80b46.firebaseapp.com",
+      projectId: "catchcode-80b46",
+      storageBucket: "catchcode-80b46.firebasestorage.app",
+      messagingSenderId: "938706573319",
+      appId: "1:938706573319:web:59ef10de90e15f1eaaf2a2"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const authButton = document.getElementById("authButton");
+    const toggleForm = document.getElementById("toggleForm");
+    const formTitle = document.getElementById("formTitle");
+    const usernameField = document.getElementById("username");
+    const toggleText = document.getElementById("toggleText");
+
+    let isSignUp = false;
+
+    toggleForm.addEventListener("click", () => {
+      isSignUp = !isSignUp;
+      if (isSignUp) {
+        formTitle.textContent = "Sign Up";
+        authButton.textContent = "Create Account";
+        usernameField.style.display = "block";
+        toggleText.innerHTML = 'Already have an account? <a id="toggleForm">Sign In</a>';
+      } else {
+        formTitle.textContent = "Sign In";
+        authButton.textContent = "Sign In";
+        usernameField.style.display = "none";
+        toggleText.innerHTML = 'Don’t have an account? <a id="toggleForm">Sign Up</a>';
+      }
+    });
+
+    authButton.addEventListener("click", async () => {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+      const username = document.getElementById("username").value;
+
+      try {
+        if (isSignUp) {
+          const userCred = await createUserWithEmailAndPassword(auth, email, password);
+          await updateProfile(userCred.user, { displayName: username });
+          alert("Account created successfully!");
+          window.location.href = "dashboard.html";
+        } else {
+          await signInWithEmailAndPassword(auth, email, password);
+          window.location.href = "dashboard.html";
+        }
+      } catch (error) {
+        alert(error.message);
+      }
+    });
+  </script>
+</body>
+</html>
