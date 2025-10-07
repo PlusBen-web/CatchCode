@@ -1,104 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Intro to HTML | CatchCode</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTML Basics - Learn</title>
   <style>
     body {
-      background: radial-gradient(circle at top left, #0d0d0d, #111);
-      color: #fff;
-      font-family: "Poppins", sans-serif;
-      overflow-x: hidden;
-      padding: 40px;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0a0f1a, #1b2735);
+      color: white;
+      margin: 0;
+      padding: 0;
       animation: fadeIn 1s ease-in-out;
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(30px); }
+      from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    h1 {
-      font-size: 3rem;
+    header {
       text-align: center;
-      color: #00f6ff;
-      text-shadow: 0 0 20px #00f6ff;
-      animation: pulse 2s infinite;
+      padding: 40px 20px;
+      background: rgba(255, 255, 255, 0.05);
+      box-shadow: 0 0 10px rgba(255,255,255,0.1);
     }
 
-    @keyframes pulse {
-      0%, 100% { text-shadow: 0 0 10px #00f6ff; }
-      50% { text-shadow: 0 0 30px #00f6ff; }
+    h1 {
+      font-size: 2.8em;
+      color: #00bfff;
+      text-shadow: 0 0 10px #00bfff;
+    }
+
+    section {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 30px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+      animation: slideUp 1s ease;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
 
     h2 {
-      color: #f7ff00;
+      color: #ffcc00;
       margin-top: 30px;
+      font-size: 1.8em;
+      border-left: 4px solid #ffcc00;
+      padding-left: 10px;
     }
 
     p {
       line-height: 1.8;
-      font-size: 1.1rem;
       margin: 10px 0;
+      color: #eaeaea;
     }
 
     .btn {
       display: inline-block;
-      padding: 12px 25px;
-      margin-top: 40px;
-      background: linear-gradient(45deg, #00f6ff, #00ffa6);
-      border-radius: 30px;
-      color: #000;
-      font-weight: 700;
+      background: #00bfff;
+      color: white;
+      padding: 14px 30px;
+      border-radius: 10px;
+      font-size: 1.1em;
       text-decoration: none;
-      box-shadow: 0 0 20px #00f6ff;
-      transition: transform 0.3s, box-shadow 0.3s;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      margin-top: 30px;
     }
 
     .btn:hover {
+      background: #ffcc00;
+      box-shadow: 0 0 15px #ffcc00;
       transform: scale(1.05);
-      box-shadow: 0 0 40px #00ffa6;
     }
 
-    .back-btn {
-      position: fixed;
-      top: 20px;
-      left: 20px;
+    .back {
       background: transparent;
-      border: 2px solid #00f6ff;
-      color: #00f6ff;
-      padding: 10px 15px;
+      border: 2px solid #00bfff;
+      color: #00bfff;
+      padding: 10px 20px;
       border-radius: 10px;
       text-decoration: none;
-      font-weight: bold;
+      margin: 20px;
+      display: inline-block;
       transition: 0.3s;
     }
 
-    .back-btn:hover {
-      background: #00f6ff;
-      color: #000;
-      box-shadow: 0 0 20px #00f6ff;
+    .back:hover {
+      background: #00bfff;
+      color: #fff;
+      transform: translateX(-5px);
     }
   </style>
 </head>
 <body>
-  <a href="learn.html" class="back-btn">← Back</a>
-  <h1>Intro to HTML</h1>
 
-  <h2>1. What is HTML?</h2>
-  <p>HTML (HyperText Markup Language) is the backbone of every website. It provides structure and meaning to content on the web.</p>
+  <header>
+    <h1>🚀 HTML Basics</h1>
+    <p>Understand the foundation of every webpage — structure, tags, and elements.</p>
+  </header>
 
-  <h2>2. Basic HTML Structure</h2>
-  <p>An HTML document starts with <code>&lt;!DOCTYPE html&gt;</code>, then includes <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code>, and <code>&lt;body&gt;</code> sections.</p>
+  <section>
+    <h2>1️⃣ Introduction to HTML</h2>
+    <p>HTML (HyperText Markup Language) is the core structure of every webpage. It defines how content is organized using tags and elements.</p>
+    <p>Think of it as the “skeleton” that holds your website together. Without it, your site has no structure or readable format.</p>
 
-  <h2>3. Common Tags</h2>
-  <p><code>&lt;h1&gt;</code> for headings, <code>&lt;p&gt;</code> for paragraphs, <code>&lt;a&gt;</code> for links, <code>&lt;img&gt;</code> for images.</p>
+    <h2>2️⃣ Common Tags & Their Uses</h2>
+    <p><b>&lt;h1&gt;–&lt;h6&gt;</b>: Headings (used for titles and subtitles)</p>
+    <p><b>&lt;p&gt;</b>: Paragraphs (used for text)</p>
+    <p><b>&lt;a&gt;</b>: Links (used for navigation)</p>
+    <p><b>&lt;img&gt;</b>: Images (used for visuals)</p>
+    <p><b>&lt;div&gt;</b> & <b>&lt;span&gt;</b>: Used to group or style content</p>
 
-  <h2>4. Creating Your First Page</h2>
-  <p>Try building a simple “Hello, World!” webpage. Save it as <code>index.html</code> and open in your browser.</p>
+    <h2>3️⃣ Attributes & Structure</h2>
+    <p>Attributes add extra details to HTML elements. Example:</p>
+    <pre style="background:#111;padding:15px;border-radius:10px;"><code>&lt;a href="https://example.com"&gt;Visit Example&lt;/a&gt;</code></pre>
+    <p>Here, <b>href</b> defines the link destination.</p>
 
-  <a href="practice.html" class="btn">⚡ Practice Now!!!</a>
+    <h2>4️⃣ HTML Page Layout</h2>
+    <p>A basic webpage structure looks like this:</p>
+    <pre style="background:#111;padding:15px;border-radius:10px;"><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;My Page&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Welcome to HTML!&lt;/h1&gt;
+    &lt;p&gt;Let's build something awesome.&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+    <h2>5️⃣ Tips & Best Practices</h2>
+    <ul>
+      <li>Always close your tags properly.</li>
+      <li>Use indentation to keep code clean.</li>
+      <li>Keep text readable and organized.</li>
+      <li>Validate your HTML to catch errors early.</li>
+    </ul>
+
+    <center>
+      <a href="#" class="btn">🔥 Practice Now!!!</a>
+    </center>
+  </section>
+
+  <center>
+    <a href="learn.html" class="back">← Back to Courses</a>
+  </center>
+
 </body>
 </html>
