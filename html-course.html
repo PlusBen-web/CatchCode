@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Intro to HTML | CatchCode</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      background: radial-gradient(circle at top left, #0d0d0d, #111);
+      color: #fff;
+      font-family: "Poppins", sans-serif;
+      overflow-x: hidden;
+      padding: 40px;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      font-size: 3rem;
+      text-align: center;
+      color: #00f6ff;
+      text-shadow: 0 0 20px #00f6ff;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { text-shadow: 0 0 10px #00f6ff; }
+      50% { text-shadow: 0 0 30px #00f6ff; }
+    }
+
+    h2 {
+      color: #f7ff00;
+      margin-top: 30px;
+    }
+
+    p {
+      line-height: 1.8;
+      font-size: 1.1rem;
+      margin: 10px 0;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 25px;
+      margin-top: 40px;
+      background: linear-gradient(45deg, #00f6ff, #00ffa6);
+      border-radius: 30px;
+      color: #000;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 0 20px #00f6ff;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 40px #00ffa6;
+    }
+
+    .back-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      background: transparent;
+      border: 2px solid #00f6ff;
+      color: #00f6ff;
+      padding: 10px 15px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .back-btn:hover {
+      background: #00f6ff;
+      color: #000;
+      box-shadow: 0 0 20px #00f6ff;
+    }
+  </style>
+</head>
+<body>
+  <a href="learn.html" class="back-btn">← Back</a>
+  <h1>Intro to HTML</h1>
+
+  <h2>1. What is HTML?</h2>
+  <p>HTML (HyperText Markup Language) is the backbone of every website. It provides structure and meaning to content on the web.</p>
+
+  <h2>2. Basic HTML Structure</h2>
+  <p>An HTML document starts with <code>&lt;!DOCTYPE html&gt;</code>, then includes <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code>, and <code>&lt;body&gt;</code> sections.</p>
+
+  <h2>3. Common Tags</h2>
+  <p><code>&lt;h1&gt;</code> for headings, <code>&lt;p&gt;</code> for paragraphs, <code>&lt;a&gt;</code> for links, <code>&lt;img&gt;</code> for images.</p>
+
+  <h2>4. Creating Your First Page</h2>
+  <p>Try building a simple “Hello, World!” webpage. Save it as <code>index.html</code> and open in your browser.</p>
+
+  <a href="practice.html" class="btn">⚡ Practice Now!!!</a>
+</body>
+</html>
