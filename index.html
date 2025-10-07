@@ -1,167 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sign In | LearnX</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign In | CodeVerse</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-    }
-
     body {
-      background: radial-gradient(circle at top left, #0d0d0d, #000);
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      font-family: 'Poppins', sans-serif;
+      background: radial-gradient(circle at top, #0a0f1c, #02050b);
       color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
       overflow: hidden;
     }
 
-    .container {
-      width: 380px;
-      background: rgba(20, 20, 20, 0.9);
-      border-radius: 20px;
+    .auth-container {
+      background: rgba(255, 255, 255, 0.05);
       padding: 2rem;
-      box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .container::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: conic-gradient(from 0deg, #0ff, #00f, #0ff, #00f);
-      animation: rotate 6s linear infinite;
-      opacity: 0.2;
-    }
-
-    @keyframes rotate {
-      100% { transform: rotate(360deg); }
-    }
-
-    .form {
-      position: relative;
-      z-index: 1;
-    }
-
-    .form h2 {
+      border-radius: 1rem;
+      box-shadow: 0 0 25px rgba(0, 150, 255, 0.4);
+      width: 350px;
       text-align: center;
+      animation: fadeIn 1.2s ease;
+    }
+
+    .auth-container h1 {
+      font-size: 1.8rem;
       margin-bottom: 1rem;
-      color: #0ff;
-      text-shadow: 0 0 8px #00f;
+      text-shadow: 0 0 15px cyan;
     }
 
-    .form-group {
-      margin-bottom: 1rem;
-    }
-
-    .form-group label {
-      display: block;
-      margin-bottom: 0.4rem;
-      font-size: 0.9rem;
-    }
-
-    .form-group input {
-      width: 100%;
-      padding: 0.7rem;
+    input {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
       border: none;
-      outline: none;
-      border-radius: 10px;
+      border-radius: 8px;
       background: rgba(255, 255, 255, 0.1);
       color: #fff;
-      font-size: 1rem;
+      outline: none;
+      transition: 0.3s;
     }
 
-    .btn {
+    input:focus {
+      box-shadow: 0 0 10px cyan;
+    }
+
+    button {
       width: 100%;
-      padding: 0.8rem;
+      padding: 12px;
+      margin-top: 10px;
+      background: linear-gradient(90deg, #00bcd4, #006eff);
+      color: white;
       border: none;
-      border-radius: 10px;
-      background: linear-gradient(90deg, #0ff, #00f);
-      color: #000;
-      font-weight: 600;
+      border-radius: 8px;
       cursor: pointer;
-      transition: 0.3s ease;
+      font-weight: 600;
+      transition: 0.4s;
     }
 
-    .btn:hover {
-      box-shadow: 0 0 15px #0ff;
+    button:hover {
+      box-shadow: 0 0 15px #00bcd4;
       transform: scale(1.05);
     }
 
-    .toggle {
-      text-align: center;
-      margin-top: 1rem;
+    p {
+      margin-top: 10px;
       font-size: 0.9rem;
+      color: #bbb;
     }
 
-    .toggle span {
-      color: #0ff;
+    a {
+      color: cyan;
       cursor: pointer;
-      text-decoration: underline;
+      text-decoration: none;
+      font-weight: 600;
     }
 
-    .fade {
-      animation: fade 0.5s ease forwards;
-    }
-
-    @keyframes fade {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="form fade" id="signin-form">
-      <h2>Welcome Back 👋</h2>
-      <div class="form-group">
-        <label>Email</label>
-        <input type="email" placeholder="Enter your email" required>
-      </div>
-      <div class="form-group">
-        <label>Password</label>
-        <input type="password" placeholder="Enter password" required>
-      </div>
-      <button class="btn">Sign In</button>
-      <div class="toggle">Don't have an account? <span onclick="toggleForm('signup')">Sign Up</span></div>
+  <div class="auth-container">
+    <h1>Welcome to CodeVerse</h1>
+
+    <div id="signupForm">
+      <input type="text" id="signupName" placeholder="Username" required />
+      <input type="email" id="signupEmail" placeholder="Email" required />
+      <input type="password" id="signupPassword" placeholder="Password" required />
+      <button id="signupBtn">Sign Up</button>
+      <p>Already have an account? <a id="toLogin">Sign In</a></p>
     </div>
 
-    <div class="form fade" id="signup-form" style="display: none;">
-      <h2>Create Account ✨</h2>
-      <div class="form-group">
-        <label>Username</label>
-        <input type="text" placeholder="Choose a username" required>
-      </div>
-      <div class="form-group">
-        <label>Email</label>
-        <input type="email" placeholder="Enter your email" required>
-      </div>
-      <div class="form-group">
-        <label>Password</label>
-        <input type="password" placeholder="Create password" required>
-      </div>
-      <button class="btn">Sign Up</button>
-      <div class="toggle">Already have an account? <span onclick="toggleForm('signin')">Sign In</span></div>
+    <div id="loginForm" style="display:none;">
+      <input type="email" id="loginEmail" placeholder="Email" required />
+      <input type="password" id="loginPassword" placeholder="Password" required />
+      <button id="loginBtn">Sign In</button>
+      <p>Don’t have an account? <a id="toSignup">Create one</a></p>
     </div>
   </div>
 
-  <script>
-    function toggleForm(type) {
-      document.getElementById('signin-form').style.display = type === 'signin' ? 'block' : 'none';
-      document.getElementById('signup-form').style.display = type === 'signup' ? 'block' : 'none';
-    }
+  <script type="module" src="firebase-config.js"></script>
+  <script type="module">
+    import { auth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from './firebase-config.js';
+
+    const signupForm = document.getElementById('signupForm');
+    const loginForm = document.getElementById('loginForm');
+    const toLogin = document.getElementById('toLogin');
+    const toSignup = document.getElementById('toSignup');
+
+    toLogin.onclick = () => {
+      signupForm.style.display = 'none';
+      loginForm.style.display = 'block';
+    };
+    toSignup.onclick = () => {
+      loginForm.style.display = 'none';
+      signupForm.style.display = 'block';
+    };
+
+    document.getElementById('signupBtn').addEventListener('click', async () => {
+      const email = document.getElementById('signupEmail').value;
+      const password = document.getElementById('signupPassword').value;
+      try {
+        await createUserWithEmailAndPassword(auth, email, password);
+        alert('Account created successfully!');
+        window.location.href = 'dashboard.html';
+      } catch (error) {
+        alert(error.message);
+      }
+    });
+
+    document.getElementById('loginBtn').addEventListener('click', async () => {
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        alert('Login successful!');
+        window.location.href = 'dashboard.html';
+      } catch (error) {
+        alert(error.message);
+      }
+    });
   </script>
 </body>
 </html>
