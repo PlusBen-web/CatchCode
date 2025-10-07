@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HTML Basics - Learn</title>
+  <title>HTML Basics - Full Course</title>
   <style>
     body {
       font-family: 'Poppins', sans-serif;
@@ -61,6 +61,25 @@
       color: #eaeaea;
     }
 
+    ul {
+      margin: 10px 0 20px 20px;
+    }
+
+    li {
+      margin: 8px 0;
+    }
+
+    code, pre {
+      background: #111;
+      color: #0ff;
+      border-radius: 10px;
+      padding: 10px 15px;
+      display: block;
+      white-space: pre-wrap;
+      word-break: break-word;
+      box-shadow: 0 0 5px rgba(0,255,255,0.2);
+    }
+
     .btn {
       display: inline-block;
       background: #00bfff;
@@ -102,50 +121,106 @@
 <body>
 
   <header>
-    <h1>🚀 HTML Basics</h1>
-    <p>Understand the foundation of every webpage — structure, tags, and elements.</p>
+    <h1>🚀 HTML Basics — Full Course</h1>
+    <p>Learn the language that builds the web from scratch. No experience needed.</p>
   </header>
 
   <section>
-    <h2>1️⃣ Introduction to HTML</h2>
-    <p>HTML (HyperText Markup Language) is the core structure of every webpage. It defines how content is organized using tags and elements.</p>
-    <p>Think of it as the “skeleton” that holds your website together. Without it, your site has no structure or readable format.</p>
+    <h2>1️⃣ What is HTML?</h2>
+    <p>HTML stands for <b>HyperText Markup Language</b>. It’s the standard language used to create web pages. It gives structure to the content on the web — defining where text, images, links, and elements appear.</p>
+    <p>Think of HTML as the *skeleton* of every website. CSS adds the style, and JavaScript adds the brains.</p>
 
-    <h2>2️⃣ Common Tags & Their Uses</h2>
-    <p><b>&lt;h1&gt;–&lt;h6&gt;</b>: Headings (used for titles and subtitles)</p>
-    <p><b>&lt;p&gt;</b>: Paragraphs (used for text)</p>
-    <p><b>&lt;a&gt;</b>: Links (used for navigation)</p>
-    <p><b>&lt;img&gt;</b>: Images (used for visuals)</p>
-    <p><b>&lt;div&gt;</b> & <b>&lt;span&gt;</b>: Used to group or style content</p>
-
-    <h2>3️⃣ Attributes & Structure</h2>
-    <p>Attributes add extra details to HTML elements. Example:</p>
-    <pre style="background:#111;padding:15px;border-radius:10px;"><code>&lt;a href="https://example.com"&gt;Visit Example&lt;/a&gt;</code></pre>
-    <p>Here, <b>href</b> defines the link destination.</p>
-
-    <h2>4️⃣ HTML Page Layout</h2>
-    <p>A basic webpage structure looks like this:</p>
-    <pre style="background:#111;padding:15px;border-radius:10px;"><code>&lt;!DOCTYPE html&gt;
+    <h2>2️⃣ The Basic Structure of an HTML Document</h2>
+    <p>Every HTML document starts and ends with specific tags. Here’s the basic structure:</p>
+    <pre><code>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
   &lt;head&gt;
-    &lt;title&gt;My Page&lt;/title&gt;
+    &lt;title&gt;My First Website&lt;/title&gt;
   &lt;/head&gt;
   &lt;body&gt;
-    &lt;h1&gt;Welcome to HTML!&lt;/h1&gt;
-    &lt;p&gt;Let's build something awesome.&lt;/p&gt;
+    &lt;h1&gt;Hello, world!&lt;/h1&gt;
+    &lt;p&gt;This is my first web page.&lt;/p&gt;
   &lt;/body&gt;
 &lt;/html&gt;</code></pre>
-
-    <h2>5️⃣ Tips & Best Practices</h2>
+    <p>🧩 Explanation:</p>
     <ul>
-      <li>Always close your tags properly.</li>
-      <li>Use indentation to keep code clean.</li>
-      <li>Keep text readable and organized.</li>
-      <li>Validate your HTML to catch errors early.</li>
+      <li><b>&lt;!DOCTYPE html&gt;</b>: Tells the browser that this is an HTML5 document.</li>
+      <li><b>&lt;html&gt;</b>: The root element that contains everything.</li>
+      <li><b>&lt;head&gt;</b>: Contains metadata, title, and links to stylesheets.</li>
+      <li><b>&lt;body&gt;</b>: The visible part of your webpage — text, images, buttons, etc.</li>
     </ul>
 
+    <h2>3️⃣ The Most Common HTML Tags</h2>
+    <p>Here are the tags you’ll use daily:</p>
+    <ul>
+      <li><b>&lt;h1&gt;–&lt;h6&gt;</b>: Headings (from biggest to smallest).</li>
+      <li><b>&lt;p&gt;</b>: Paragraphs of text.</li>
+      <li><b>&lt;a href="url"&gt;</b>: Links to other pages.</li>
+      <li><b>&lt;img src="image.jpg"&gt;</b>: Displays an image.</li>
+      <li><b>&lt;ul&gt;</b> and <b>&lt;li&gt;</b>: Unordered list and list items.</li>
+      <li><b>&lt;div&gt;</b>: Used to group elements (like a container).</li>
+    </ul>
+
+    <h2>4️⃣ Attributes — Adding Extra Power</h2>
+    <p>Attributes give elements more meaning or control. For example:</p>
+    <pre><code>&lt;img src="cat.jpg" alt="A cute cat" width="300"&gt;</code></pre>
+    <p>Here, <b>src</b> defines the image source, <b>alt</b> gives a description (shown if the image fails to load), and <b>width</b> sets the size.</p>
+
+    <h2>5️⃣ Nesting Elements</h2>
+    <p>HTML elements can live inside each other. This is called *nesting*:</p>
+    <pre><code>&lt;div&gt;
+  &lt;h2&gt;About Me&lt;/h2&gt;
+  &lt;p&gt;I love web development!&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+
+    <h2>6️⃣ Lists, Links & Images</h2>
+    <p>Examples of lists:</p>
+    <pre><code>&lt;ul&gt;
+  &lt;li&gt;HTML&lt;/li&gt;
+  &lt;li&gt;CSS&lt;/li&gt;
+  &lt;li&gt;JavaScript&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+    <p>Example of a link:</p>
+    <pre><code>&lt;a href="https://google.com"&gt;Go to Google&lt;/a&gt;</code></pre>
+    <p>Example of an image:</p>
+    <pre><code>&lt;img src="coding.jpg" alt="Coding photo"&gt;</code></pre>
+
+    <h2>7️⃣ Semantic HTML — Writing with Meaning</h2>
+    <p>Modern HTML encourages using semantic tags — elements that describe their purpose clearly:</p>
+    <ul>
+      <li><b>&lt;header&gt;</b>: Top section or navigation area.</li>
+      <li><b>&lt;nav&gt;</b>: Defines a set of navigation links.</li>
+      <li><b>&lt;main&gt;</b>: Main content area.</li>
+      <li><b>&lt;article&gt;</b>: Independent content block.</li>
+      <li><b>&lt;footer&gt;</b>: Bottom section, usually with copyright or links.</li>
+    </ul>
+
+    <h2>8️⃣ Forms and Input</h2>
+    <p>Forms collect user data — like sign-ups, search boxes, etc.</p>
+    <pre><code>&lt;form&gt;
+  &lt;label&gt;Your Name:&lt;/label&gt;
+  &lt;input type="text" placeholder="Enter name"&gt;&lt;br&gt;
+  &lt;button&gt;Submit&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+
+    <h2>9️⃣ Comments & Best Practices</h2>
+    <p>Comments help explain code without showing on the site:</p>
+    <pre><code>&lt;!-- This is a comment --&gt;</code></pre>
+    <ul>
+      <li>Use lowercase tags for consistency.</li>
+      <li>Indent nested elements properly.</li>
+      <li>Always close tags.</li>
+      <li>Keep your HTML readable and validated.</li>
+    </ul>
+
+    <h2>🔟 Mini Challenge</h2>
+    <p>Try building this simple layout:</p>
+    <pre><code>&lt;h1&gt;My Portfolio&lt;/h1&gt;
+&lt;p&gt;Welcome to my personal site.&lt;/p&gt;
+&lt;a href="about.html"&gt;Learn more about me&lt;/a&gt;</code></pre>
+
     <center>
-      <a href="https://plusben-web.github.io/CatchCode/practice.html" class="btn">🔥 Practice Now!!!</a>
+      <a href="#" class="btn">🔥 Practice Now!!!</a>
     </center>
   </section>
 
