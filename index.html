@@ -3,199 +3,165 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sign In | CatchCode</title>
+  <title>Sign In | LearnX</title>
   <style>
-    body {
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+    * {
       margin: 0;
+      padding: 0;
+      box-sizing: border-box;
       font-family: 'Poppins', sans-serif;
-      background: radial-gradient(circle at top left, #0f2027, #203a43, #2c5364);
-      color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    }
+
+    body {
+      background: radial-gradient(circle at top left, #0d0d0d, #000);
       height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
       overflow: hidden;
     }
 
     .container {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      width: 380px;
+      background: rgba(20, 20, 20, 0.9);
       border-radius: 20px;
-      padding: 40px 30px;
-      width: 350px;
-      box-shadow: 0 0 25px rgba(0, 255, 255, 0.3);
-      backdrop-filter: blur(10px);
-      animation: floatUp 1s ease-in-out;
+      padding: 2rem;
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .container::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: conic-gradient(from 0deg, #0ff, #00f, #0ff, #00f);
+      animation: rotate 6s linear infinite;
+      opacity: 0.2;
+    }
+
+    @keyframes rotate {
+      100% { transform: rotate(360deg); }
+    }
+
+    .form {
+      position: relative;
+      z-index: 1;
+    }
+
+    .form h2 {
       text-align: center;
+      margin-bottom: 1rem;
+      color: #0ff;
+      text-shadow: 0 0 8px #00f;
     }
 
-    h1 {
-      margin-bottom: 10px;
-      background: linear-gradient(90deg, #00ffff, #007bff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      font-size: 1.8em;
-      text-shadow: 0 0 10px rgba(0,255,255,0.5);
-      animation: glow 2s infinite alternate;
+    .form-group {
+      margin-bottom: 1rem;
     }
 
-    @keyframes glow {
-      from { text-shadow: 0 0 10px #00ffff; }
-      to { text-shadow: 0 0 25px #007bff; }
+    .form-group label {
+      display: block;
+      margin-bottom: 0.4rem;
+      font-size: 0.9rem;
     }
 
-    @keyframes floatUp {
-      from { opacity: 0; transform: translateY(40px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    input {
-      width: 90%;
-      margin: 10px 0;
-      padding: 12px;
+    .form-group input {
+      width: 100%;
+      padding: 0.7rem;
       border: none;
+      outline: none;
       border-radius: 10px;
       background: rgba(255, 255, 255, 0.1);
-      color: white;
-      font-size: 15px;
-      outline: none;
-      transition: 0.3s;
+      color: #fff;
+      font-size: 1rem;
     }
 
-    input:focus {
-      border: 1px solid #00ffff;
-      box-shadow: 0 0 8px #00ffff;
-    }
-
-    button {
-      width: 95%;
-      margin-top: 15px;
-      padding: 12px;
+    .btn {
+      width: 100%;
+      padding: 0.8rem;
       border: none;
       border-radius: 10px;
-      background: linear-gradient(90deg, #00ffff, #007bff);
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
-      transition: 0.3s;
-      text-transform: uppercase;
+      background: linear-gradient(90deg, #0ff, #00f);
+      color: #000;
       font-weight: 600;
-    }
-
-    button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 15px #00ffff;
-    }
-
-    a {
-      color: #00ffff;
       cursor: pointer;
-      text-decoration: none;
-      font-weight: bold;
-      transition: 0.3s;
+      transition: 0.3s ease;
     }
 
-    a:hover {
-      color: #66fcf1;
+    .btn:hover {
+      box-shadow: 0 0 15px #0ff;
+      transform: scale(1.05);
     }
 
-    p {
-      margin-top: 15px;
-      font-size: 14px;
-      opacity: 0.9;
+    .toggle {
+      text-align: center;
+      margin-top: 1rem;
+      font-size: 0.9rem;
     }
 
-    .hidden {
-      display: none;
+    .toggle span {
+      color: #0ff;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .fade {
+      animation: fade 0.5s ease forwards;
+    }
+
+    @keyframes fade {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Welcome to CatchCode 🚀</h1>
+    <div class="form fade" id="signin-form">
+      <h2>Welcome Back 👋</h2>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" placeholder="Enter your email" required>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" placeholder="Enter password" required>
+      </div>
+      <button class="btn">Sign In</button>
+      <div class="toggle">Don't have an account? <span onclick="toggleForm('signup')">Sign Up</span></div>
+    </div>
 
-    <form id="signupForm">
-      <input type="text" id="username" placeholder="Username" required>
-      <input type="email" id="email" placeholder="Email" required>
-      <input type="password" id="password" placeholder="Password" required>
-      <button type="submit">Sign Up</button>
-    </form>
-
-    <form id="loginForm" class="hidden">
-      <input type="email" id="loginEmail" placeholder="Email" required>
-      <input type="password" id="loginPassword" placeholder="Password" required>
-      <button type="submit">Login</button>
-    </form>
-
-    <p id="toggleText">Already have an account? <a id="toggleToLogin">Login</a></p>
+    <div class="form fade" id="signup-form" style="display: none;">
+      <h2>Create Account ✨</h2>
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" placeholder="Choose a username" required>
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" placeholder="Enter your email" required>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" placeholder="Create password" required>
+      </div>
+      <button class="btn">Sign Up</button>
+      <div class="toggle">Already have an account? <span onclick="toggleForm('signin')">Sign In</span></div>
+    </div>
   </div>
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-app.js";
-    import { 
-      getAuth, 
-      createUserWithEmailAndPassword, 
-      signInWithEmailAndPassword, 
-      updateProfile 
-    } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-auth.js";
-
-    // Firebase Config
-    const firebaseConfig = {
-  apiKey: "AIzaSyCmUGqyM9fE7XY3daIYA-KFuvsdpqOVr-I",
-  authDomain: "catchcode-80b46.firebaseapp.com",
-  projectId: "catchcode-80b46",
-  storageBucket: "catchcode-80b46.firebasestorage.app",
-  messagingSenderId: "938706573319",
-  appId: "1:938706573319:web:59ef10de90e15f1eaaf2a2"
-};
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-
-    const signupForm = document.getElementById('signupForm');
-    const loginForm = document.getElementById('loginForm');
-    const toggleText = document.getElementById('toggleText');
-    const toggleToLogin = document.getElementById('toggleToLogin');
-
-    toggleToLogin.addEventListener('click', () => {
-      const signupVisible = !signupForm.classList.contains('hidden');
-      signupForm.classList.toggle('hidden', signupVisible);
-      loginForm.classList.toggle('hidden', !signupVisible);
-      toggleText.innerHTML = signupVisible 
-        ? `Don't have an account? <a id="toggleToLogin">Sign Up</a>`
-        : `Already have an account? <a id="toggleToLogin">Login</a>`;
-    });
-
-    signupForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const username = document.getElementById('username').value;
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
-
-      try {
-        const userCred = await createUserWithEmailAndPassword(auth, email, password);
-        await updateProfile(userCred.user, { displayName: username });
-        localStorage.setItem('username', username);
-        window.location.href = "dashboard.html";
-      } catch (err) {
-        alert(err.message);
-      }
-    });
-
-    loginForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const email = document.getElementById('loginEmail').value;
-      const password = document.getElementById('loginPassword').value;
-
-      try {
-        const userCred = await signInWithEmailAndPassword(auth, email, password);
-        const user = userCred.user;
-        localStorage.setItem('username', user.displayName || 'User');
-        window.location.href = "dashboard.html";
-      } catch (err) {
-        alert(err.message);
-      }
-    });
+  <script>
+    function toggleForm(type) {
+      document.getElementById('signin-form').style.display = type === 'signin' ? 'block' : 'none';
+      document.getElementById('signup-form').style.display = type === 'signup' ? 'block' : 'none';
+    }
   </script>
 </body>
 </html>
