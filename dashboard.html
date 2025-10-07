@@ -144,9 +144,12 @@
     </div>
   </nav>
 
-  <div class="welcome">
-    Welcome back, <span id="userName">PlusBen</span> 👋
-  </div>
+  <h1 id="welcomeUser">Welcome back 👋</h1>
+
+<script>
+  const username = localStorage.getItem('username') || 'User';
+  document.getElementById('welcomeUser').innerHTML = `👑 Welcome, <b>${username}</b>`;
+</script>
 
   <section class="overview">
     <div class="card">
